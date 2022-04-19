@@ -1,13 +1,5 @@
 /node
 /src/main/resources/static/node/**
-#/target/classes/static/node/node_modules/**
-#/target/node/**
-#/target/classes/public/static/**
-#/target/classes/static/node/**
-#/target/surefire-reports/**
-#/target/maven-status/maven-compiler-plugin/compile/default-compile/**
-#/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/**
-#/target/test-classes/our/fashionablesimba/yanawa/**
 
 HELP.md
 target/
