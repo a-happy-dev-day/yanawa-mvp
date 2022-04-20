@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 
 import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
-import static our.fashionablesimba.yanawa.matching.domain.MatchingFixture.매칭;
+import static our.fashionablesimba.yanawa.matching.fixture.MatchingFixture.매칭;
 
 class MatchingTest {
     private static final BigDecimal 만원 = BigDecimal.valueOf(10000L);

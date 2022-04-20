@@ -1,4 +1,4 @@
-package our.fashionablesimba.yanawa.matching.domain;
+package our.fashionablesimba.yanawa.matching.fixture;
 
 import our.fashionablesimba.yanawa.matching.domain.matching.Matching;
 import our.fashionablesimba.yanawa.matching.domain.matching.PreferenceTeamGame;
