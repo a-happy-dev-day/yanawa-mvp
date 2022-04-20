@@ -5,7 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import our.fashionablesimba.yanawa.matching.domain.MatchingReviewClient;
+import our.fashionablesimba.yanawa.matching.domain.NotificationReviewClient;
 import our.fashionablesimba.yanawa.matching.domain.matching.*;
 import our.fashionablesimba.yanawa.matching.domain.usermatching.UserMatching;
 import our.fashionablesimba.yanawa.matching.domain.usermatching.UserMatchingRepository;
@@ -25,9 +25,9 @@ public class MatchingService {
     private final MatchingRepository matchingRepository;
     private final UserMatchingRepository userMatchingRepository;
 
-    private final MatchingReviewClient matchingReviewClient;
+    private final NotificationReviewClient matchingReviewClient;
 
-    public MatchingService(MatchingRepository matchingRepository, UserMatchingRepository userMatchingRepository, MatchingReviewClient matchingReviewClient) {
+    public MatchingService(MatchingRepository matchingRepository, UserMatchingRepository userMatchingRepository, NotificationReviewClient matchingReviewClient) {
         this.matchingRepository = matchingRepository;
         this.userMatchingRepository = userMatchingRepository;
         this.matchingReviewClient = matchingReviewClient;
@@ -125,7 +125,7 @@ public class MatchingService {
         matchingRepository.save(matching);
 
         userMatchingRepository.findAllByMatchingId(matchingId).forEach(userMatching -> {
-            matchingReviewClient.writeMatchingReview(matchingId, userMatching.getUserId());
+            matchingReviewClient.noticeMatchingReview(matchingId, userMatching.getUserId());
         });
     }
 
