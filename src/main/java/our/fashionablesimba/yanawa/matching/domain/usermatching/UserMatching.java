@@ -17,7 +17,7 @@ public class UserMatching {
 
     protected UserMatching() {/*no-op*/}
 
-    private UserMatching(Long userMatchingId, Long userId, Long matchingId, UserMatchingStatus userMatchingStatus) {
+    public UserMatching(Long userMatchingId, Long userId, Long matchingId, UserMatchingStatus userMatchingStatus) {
         this.userMatchingId = userMatchingId;
         this.userId = userId;
         this.matchingId = matchingId;

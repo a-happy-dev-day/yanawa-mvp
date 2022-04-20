@@ -32,7 +32,7 @@ public class Matching {
 
     protected Matching() {/*no-op*/}
 
-    private Matching(Long matchingId, Long userId,
+    public Matching(Long matchingId, Long userId,
                      LocalDateTime creationDate, LocalDateTime matchingDate,
                      String tennisCourt, RatingLevel minimumLevel, RatingLevel maximumLevel,
                      RecruitmentAge recruitmentAge, PreferenceTeamGame preferenceTeamGame,
