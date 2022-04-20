@@ -7,8 +7,8 @@ public class Matching {
     private Long matchingId;
     private Long tennisCourtId;
     private Long userId;
-    private LocalDateTime MatchingCreationDate;
-    private LocalDateTime MatchingDate;
+    private LocalDateTime matchingCreationDate;
+    private LocalDateTime matchingDate;
     private RatingLevel minimumLevel;
     private RatingLevel maximumLevel;
     private RecruitmentAge recruitmentAge;
@@ -49,8 +49,8 @@ public class Matching {
         this.matchingId = matchingId;
         this.tennisCourtId = tennisCourtId;
         this.userId = userId;
-        MatchingCreationDate = matchingCreationDate;
-        MatchingDate = matchingDate;
+        this.matchingCreationDate = matchingCreationDate;
+        this.matchingDate = matchingDate;
         this.minimumLevel = minimumLevel;
         this.maximumLevel = maximumLevel;
         this.recruitmentAge = recruitmentAge;
@@ -73,11 +73,11 @@ public class Matching {
     }
 
     public LocalDateTime getMatchingCreationDate() {
-        return MatchingCreationDate;
+        return matchingCreationDate;
     }
 
     public LocalDateTime getMatchingDate() {
-        return MatchingDate;
+        return matchingDate;
     }
 
     public RatingLevel getMinimumLevel() {
