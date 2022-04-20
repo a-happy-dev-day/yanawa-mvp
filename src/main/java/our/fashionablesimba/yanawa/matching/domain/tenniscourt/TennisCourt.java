@@ -8,10 +8,6 @@ public class TennisCourt {
 
     protected TennisCourt() {/*no-op*/}
 
-    public TennisCourt(String tennisCourtName) {
-        this(null, tennisCourtName, TennisCourtStatus.EMPTY);
-    }
-
     private TennisCourt(Long tennisCourtId, String tennisCourtName, TennisCourtStatus tennisCourtStatus) {
 
         if (tennisCourtName == null || tennisCourtName.trim().isEmpty()) {
@@ -26,6 +22,11 @@ public class TennisCourt {
         this.tennisCourtName = tennisCourtName;
         this.tennisCourtStatus = tennisCourtStatus;
     }
+
+    public static TennisCourt createTennisCourt(String tennisCourtName) {
+        return new TennisCourt(null, tennisCourtName, TennisCourtStatus.EMPTY);
+    }
+
 
     public Long getTennisCourtId() {
         return tennisCourtId;

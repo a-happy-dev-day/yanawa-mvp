@@ -21,15 +21,6 @@ public class Matching {
 
     protected Matching() {/*no-op*/}
 
-    public Matching(Long tennisCourtId, Long userId, LocalDateTime matchingDate,
-                    RatingLevel minimumLevel, RatingLevel maximumLevel,
-                    RecruitmentAge recruitmentAge, PreferenceTeamGame preferenceTeamGame,
-                    BigDecimal rentalCost, String matchingContent) {
-        this(null, tennisCourtId, userId, LocalDateTime.now(),
-                matchingDate, minimumLevel, maximumLevel, recruitmentAge,
-                preferenceTeamGame, rentalCost, MatchingStatus.RECRUITING, matchingContent);
-    }
-
     private Matching(Long matchingId, Long tennisCourtId, Long userId,
                      LocalDateTime matchingCreationDate, LocalDateTime matchingDate,
                      RatingLevel minimumLevel, RatingLevel maximumLevel,
@@ -60,6 +51,15 @@ public class Matching {
         this.rentalCost = rentalCost;
         this.matchingStatus = matchingStatus;
         this.matchingContent = matchingContent;
+    }
+
+    public static Matching createMatching(Long tennisCourtId, Long userId, LocalDateTime matchingDate,
+                                          RatingLevel minimumLevel, RatingLevel maximumLevel,
+                                          RecruitmentAge recruitmentAge, PreferenceTeamGame preferenceTeamGame,
+                                          BigDecimal rentalCost, String matchingContent) {
+        return new Matching(null, tennisCourtId, userId, LocalDateTime.now(),
+                matchingDate, minimumLevel, maximumLevel, recruitmentAge,
+                preferenceTeamGame, rentalCost, MatchingStatus.RECRUITING, matchingContent);
     }
 
     public Long getMatchingId() {
