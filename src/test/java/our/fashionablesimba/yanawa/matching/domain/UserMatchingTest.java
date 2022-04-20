@@ -14,14 +14,14 @@ class UserMatchingTest {
     @DisplayName("사용자 매칭을 생성할 수 있다.")
     void test1() {
         Assertions.assertDoesNotThrow(
-                () -> new UserMatching(1L, 1L, 1L)
+                () -> new UserMatching( 1L, 1L)
         );
     }
 
     @Test
     @DisplayName("사용자 매칭이 생성되면 상태가 수락이 된다.")
     void test2() {
-        UserMatching userMatching = new UserMatching(1L, 1L, 1L);
+        UserMatching userMatching = new UserMatching( 1L, 1L);
         assertThat(userMatching.getUserMatchingStatus()).isEqualTo(UserMatchingStatus.ACCEPTED);
     }
 }

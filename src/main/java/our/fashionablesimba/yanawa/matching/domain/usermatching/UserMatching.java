@@ -1,9 +1,18 @@
 package our.fashionablesimba.yanawa.matching.domain.usermatching;
 
+import javax.persistence.Entity;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+@Entity
 public class UserMatching {
+    @Id
+    @GeneratedValue
     private Long userMatchingId;
     private Long userId;
     private Long matchingId;
+    @Enumerated
     private UserMatchingStatus userMatchingStatus;
 
     protected UserMatching() {/*no-op*/}
@@ -15,8 +24,8 @@ public class UserMatching {
         this.userMatchingStatus = userMatchingStatus;
     }
 
-    public UserMatching(Long userMatchingId, Long userId, Long matchingId) {
-        this(userMatchingId, userId, matchingId, UserMatchingStatus.ACCEPTED);
+    public UserMatching(Long userId, Long matchingId) {
+        this(null, userId, matchingId, UserMatchingStatus.ACCEPTED);
     }
 
     public Long getUserMatchingId() {
