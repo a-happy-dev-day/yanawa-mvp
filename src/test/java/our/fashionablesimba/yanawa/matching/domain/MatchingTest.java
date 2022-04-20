@@ -3,6 +3,7 @@ package our.fashionablesimba.yanawa.matching.domain;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import our.fashionablesimba.yanawa.matching.domain.matching.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;

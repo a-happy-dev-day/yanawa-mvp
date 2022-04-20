@@ -3,6 +3,8 @@ package our.fashionablesimba.yanawa.matching.domain;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import our.fashionablesimba.yanawa.matching.domain.tenniscourt.TennisCourt;
+import our.fashionablesimba.yanawa.matching.domain.tenniscourt.TennisCourtStatus;
 
 class TennisCourtTest {
 

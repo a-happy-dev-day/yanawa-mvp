@@ -1,4 +1,4 @@
-package our.fashionablesimba.yanawa.matching.domain;
+package our.fashionablesimba.yanawa.matching.domain.tenniscourt;
 
 public class TennisCourt {
 

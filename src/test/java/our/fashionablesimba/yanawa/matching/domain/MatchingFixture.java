@@ -1,5 +1,11 @@
 package our.fashionablesimba.yanawa.matching.domain;
 
+import our.fashionablesimba.yanawa.matching.domain.matching.Matching;
+import our.fashionablesimba.yanawa.matching.domain.matching.PreferenceTeamGame;
+import our.fashionablesimba.yanawa.matching.domain.matching.RatingLevel;
+import our.fashionablesimba.yanawa.matching.domain.matching.RecruitmentAge;
+import our.fashionablesimba.yanawa.matching.domain.tenniscourt.TennisCourt;
+
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 

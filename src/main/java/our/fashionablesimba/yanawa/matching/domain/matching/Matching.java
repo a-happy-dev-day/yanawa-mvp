@@ -1,4 +1,4 @@
-package our.fashionablesimba.yanawa.matching.domain;
+package our.fashionablesimba.yanawa.matching.domain.matching;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -18,6 +18,8 @@ public class Matching {
     private MatchingStatus matchingStatus;
 
     private String matchingContent;
+
+    protected Matching() {/*no-op*/}
 
     public Matching(Long tennisCourtId, Long userId, LocalDateTime matchingDate,
                     RatingLevel minimumLevel, RatingLevel maximumLevel,
