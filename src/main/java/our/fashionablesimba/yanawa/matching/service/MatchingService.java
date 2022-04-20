@@ -34,23 +34,18 @@ public class MatchingService {
     }
 
     @Transactional
-    public Matching recruit(Long userId, String tennisCourtName, LocalDateTime matchingData,
-                            RecruitmentAge age, RatingLevel minimumLevel, RatingLevel maximumLevel, String content,
-                            Long recruitmentAnnual, PreferenceTeamGame teamGame, BigDecimal rentalCost
-    ) {
+    public Matching recruit(Matching request) {
         log.debug("[{}][{}] recruit Matching", this.getClass(), this.getClass().getSimpleName());
-        matchingRepository.findAllByUserId(userId).stream().anyMatch(matching ->
+        matchingRepository.findAllByUserId(request.getUserId()).stream().anyMatch(matching ->
         {
             if (matching.getMatchingDate().format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT))
-                    .equals(matchingData.format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT)))) {
+                    .equals(request.getMatchingDate().format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT)))) {
                 throw new IllegalStateException("겹치는 시간이 존재합니다.");
             }
             return false;
         });
 
-        Matching matching = new Matching(userId, matchingData, minimumLevel, maximumLevel,
-                age, teamGame, rentalCost, content, tennisCourtName, recruitmentAnnual);
-        return matchingRepository.save(matching);
+        return matchingRepository.save(request);
     }
 
     @Transactional
