@@ -15,8 +15,8 @@ public class UserMatching {
         this.userMatchingStatus = userMatchingStatus;
     }
 
-    public static UserMatching createMatchingAndAccepted(Long userMatchingId, Long userId, Long matchingId) {
-        return new UserMatching(userMatchingId, userId, matchingId, UserMatchingStatus.ACCEPTED);
+    public UserMatching(Long userMatchingId, Long userId, Long matchingId) {
+        this(userMatchingId, userId, matchingId, UserMatchingStatus.ACCEPTED);
     }
 
     public Long getUserMatchingId() {

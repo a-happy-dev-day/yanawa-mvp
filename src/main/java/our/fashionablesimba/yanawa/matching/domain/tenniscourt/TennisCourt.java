@@ -23,8 +23,8 @@ public class TennisCourt {
         this.tennisCourtStatus = tennisCourtStatus;
     }
 
-    public static TennisCourt createTennisCourt(String tennisCourtName) {
-        return new TennisCourt(null, tennisCourtName, TennisCourtStatus.EMPTY);
+    public TennisCourt(String tennisCourtName) {
+        this(null, tennisCourtName, TennisCourtStatus.EMPTY);
     }
 
 

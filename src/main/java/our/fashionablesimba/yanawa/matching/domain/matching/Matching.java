@@ -53,11 +53,11 @@ public class Matching {
         this.matchingContent = matchingContent;
     }
 
-    public static Matching createMatching(Long tennisCourtId, Long userId, LocalDateTime matchingDate,
+    public Matching(Long tennisCourtId, Long userId, LocalDateTime matchingDate,
                                           RatingLevel minimumLevel, RatingLevel maximumLevel,
                                           RecruitmentAge recruitmentAge, PreferenceTeamGame preferenceTeamGame,
                                           BigDecimal rentalCost, String matchingContent) {
-        return new Matching(null, tennisCourtId, userId, LocalDateTime.now(),
+        this(null, tennisCourtId, userId, LocalDateTime.now(),
                 matchingDate, minimumLevel, maximumLevel, recruitmentAge,
                 preferenceTeamGame, rentalCost, MatchingStatus.RECRUITING, matchingContent);
     }
