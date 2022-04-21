@@ -16,7 +16,7 @@ public class MatchingFixture {
             new Matching( 0L, LocalDateTime.now().plusDays(1L),
                     RatingLevel.A, RatingLevel.B,
                     RecruitmentAge.TWENTIES, PreferenceTeamGame.SINGLES,
-                    만원, null, "tennisCourt", 1L);
+                    만원, null, "tennisCourt", 1, 2);
 
     public static final UserMatching 사용자매칭 = new UserMatching( 1L, 1L);
 }

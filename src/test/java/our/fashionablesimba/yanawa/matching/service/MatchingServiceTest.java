@@ -26,10 +26,7 @@ class MatchingServiceTest {
     void test1() {
         Matching matching = 매칭;
         Assertions.assertDoesNotThrow(
-                () -> matchingService.recruit(matching.getUserId(), matching.getTennisCourt(),
-                        matching.getMatchingDate(), matching.getRecruitmentAge(), matching.getMinimumLevel(),
-                        matching.getMaximumLevel(), matching.getMatchingContent(), matching.getRecruitmentAnnual(),
-                        matching.getPreferenceTeamGame(), matching.getRentalCost())
+                () -> matchingService.recruit(matching)
         );
     }
 

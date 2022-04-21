@@ -15,7 +15,8 @@ public class Matching {
     private Long userId;
     private LocalDateTime creationDate;
     private LocalDateTime matchingDate;
-    private String tennisCourt;
+    private String tennisCourtName;
+    private int numberOfMember;
     @Enumerated
     private RatingLevel minimumLevel;
     @Enumerated
@@ -27,16 +28,16 @@ public class Matching {
     @Enumerated
     private MatchingStatus status;
     private BigDecimal rentalCost;
-    private Long recruitmentAnnual;
+    private int recruitmentAnnual;
     private String content;
 
     protected Matching() {/*no-op*/}
 
     public Matching(Long matchingId, Long userId,
                     LocalDateTime creationDate, LocalDateTime matchingDate,
-                    String tennisCourt, RatingLevel minimumLevel, RatingLevel maximumLevel,
+                    String tennisCourtName, int numberOfMember, RatingLevel minimumLevel, RatingLevel maximumLevel,
                     RecruitmentAge recruitmentAge, PreferenceTeamGame preferenceTeamGame,
-                    BigDecimal rentalCost, MatchingStatus status, Long recruitmentAnnual, String content) {
+                    BigDecimal rentalCost, MatchingStatus status, int recruitmentAnnual, String content) {
 
         if (rentalCost == null || rentalCost.compareTo(BigDecimal.ONE) < 0) {
             throw new IllegalArgumentException("코트 비용이 음수가 될 수 없습니다.");
@@ -54,9 +55,19 @@ public class Matching {
             throw new IllegalArgumentException("연차는 음수가 될 수 없습니다.");
         }
 
-        this.tennisCourt = tennisCourt;
+        if (!(numberOfMember == 2 || numberOfMember == 4)) {
+            throw new IllegalArgumentException("모집인원은 두명에서 네명만 가능합니다.");
+        }
+
+        if (tennisCourtName.trim().isEmpty()) {
+            throw new IllegalArgumentException("코트장 이름이 존재해야 합니다.");
+        }
+
+
+        this.tennisCourtName = tennisCourtName;
         this.matchingId = matchingId;
         this.userId = userId;
+        this.numberOfMember = numberOfMember;
         this.creationDate = creationDate;
         this.matchingDate = matchingDate;
         this.minimumLevel = minimumLevel;
@@ -73,10 +84,14 @@ public class Matching {
     public Matching(Long userId, LocalDateTime matchingDate,
                     RatingLevel minimumLevel, RatingLevel maximumLevel,
                     RecruitmentAge recruitmentAge, PreferenceTeamGame preferenceTeamGame,
-                    BigDecimal rentalCost, String matchingContent, String tennisCourt, Long recruitmentAnnual) {
+                    BigDecimal rentalCost, String matchingContent, String tennisCourt, int recruitmentAnnual, int numberOfMember) {
         this(null, userId, LocalDateTime.now(),
-                matchingDate, tennisCourt, minimumLevel, maximumLevel, recruitmentAge,
+                matchingDate, tennisCourt, numberOfMember, minimumLevel, maximumLevel, recruitmentAge,
                 preferenceTeamGame, rentalCost, MatchingStatus.RECRUITING, recruitmentAnnual, matchingContent);
+    }
+
+    public int getNumberOfMember() {
+        return numberOfMember;
     }
 
     public Long getMatchingId() {
@@ -123,15 +138,15 @@ public class Matching {
         return creationDate;
     }
 
-    public String getTennisCourt() {
-        return tennisCourt;
+    public String getTennisCourtName() {
+        return tennisCourtName;
     }
 
     public MatchingStatus getStatus() {
         return status;
     }
 
-    public Long getRecruitmentAnnual() {
+    public int getRecruitmentAnnual() {
         return recruitmentAnnual;
     }
 

@@ -17,11 +17,13 @@ public class MatchingResponse {
     private final RatingLevel minimumLevel;
     private final RatingLevel maximumLevel;
     private final String content;
-    private final Long recruitmentAnnual;
+    private int numberOfMember;
+
+    private final int recruitmentAnnual;
     private final PreferenceTeamGame teamGame;
     private final BigDecimal rentalCost;
 
-    public MatchingResponse(Long userId, String tennisCourtName, LocalDateTime matchingData, RecruitmentAge age, RatingLevel minimumLevel, RatingLevel maximumLevel, String content, Long recruitmentAnnual, PreferenceTeamGame teamGame, BigDecimal rentalCost) {
+    public MatchingResponse(Long userId, String tennisCourtName, LocalDateTime matchingData, RecruitmentAge age, RatingLevel minimumLevel, RatingLevel maximumLevel, String content, int numberOfMember, int recruitmentAnnual, PreferenceTeamGame teamGame, BigDecimal rentalCost) {
         this.userId = userId;
         this.tennisCourtName = tennisCourtName;
         this.matchingData = matchingData;
@@ -29,15 +31,16 @@ public class MatchingResponse {
         this.minimumLevel = minimumLevel;
         this.maximumLevel = maximumLevel;
         this.content = content;
+        this.numberOfMember = numberOfMember;
         this.recruitmentAnnual = recruitmentAnnual;
         this.teamGame = teamGame;
         this.rentalCost = rentalCost;
     }
 
     public MatchingResponse(Matching matching) {
-        this(matching.getUserId(), matching.getTennisCourt(), matching.getMatchingDate(),
+        this(matching.getUserId(), matching.getTennisCourtName(), matching.getMatchingDate(),
                 matching.getRecruitmentAge(), matching.getMinimumLevel(), matching.getMaximumLevel(),
-                matching.getMatchingContent(), matching.getRecruitmentAnnual(), matching.getPreferenceTeamGame(),
+                matching.getMatchingContent(), matching.getNumberOfMember(), matching.getRecruitmentAnnual(), matching.getPreferenceTeamGame(),
                 matching.getRentalCost());
     }
 }

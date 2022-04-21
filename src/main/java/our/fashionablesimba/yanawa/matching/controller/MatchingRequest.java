@@ -12,22 +12,25 @@ public class MatchingRequest {
     private Long userId;
     private String tennisCourtName;
     private LocalDateTime matchingData;
+    private int numberOfMember;
     private RecruitmentAge age;
     private RatingLevel minimumLevel;
     private RatingLevel maximumLevel;
     private String content;
-    private Long recruitmentAnnual;
+    private int recruitmentAnnual;
     private PreferenceTeamGame teamGame;
     private BigDecimal rentalCost;
 
     protected MatchingRequest() {/*no-op*/}
 
-    public MatchingRequest(Long userId, String tennisCourtName, LocalDateTime matchingData, RecruitmentAge age,
-                           RatingLevel minimumLevel, RatingLevel maximumLevel, String content, Long recruitmentAnnual,
+    public MatchingRequest(Long userId, String tennisCourtName, LocalDateTime matchingData, int numberOfMember, RecruitmentAge age,
+                           RatingLevel minimumLevel, RatingLevel maximumLevel, String content, int recruitmentAnnual,
                            PreferenceTeamGame teamGame, BigDecimal rentalCost) {
+
         this.userId = userId;
         this.tennisCourtName = tennisCourtName;
         this.matchingData = matchingData;
+        this.numberOfMember = numberOfMember;
         this.age = age;
         this.minimumLevel = minimumLevel;
         this.maximumLevel = maximumLevel;
@@ -35,6 +38,10 @@ public class MatchingRequest {
         this.recruitmentAnnual = recruitmentAnnual;
         this.teamGame = teamGame;
         this.rentalCost = rentalCost;
+    }
+
+    public int getNumberOfMember() {
+        return numberOfMember;
     }
 
     public Long getUserId() {
@@ -65,7 +72,7 @@ public class MatchingRequest {
         return content;
     }
 
-    public Long getRecruitmentAnnual() {
+    public int getRecruitmentAnnual() {
         return recruitmentAnnual;
     }
 
@@ -79,7 +86,7 @@ public class MatchingRequest {
 
     public Matching toMatching() {
         return new Matching(userId, matchingData, minimumLevel, maximumLevel,
-                age, teamGame, rentalCost, content, tennisCourtName, recruitmentAnnual);
+                age, teamGame, rentalCost, content, tennisCourtName, recruitmentAnnual, numberOfMember);
     }
 
 }

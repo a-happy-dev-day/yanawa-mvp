@@ -30,4 +30,4 @@ logging:
   level:
     our:
       fashionablesimba:
-          yanawa: debug
+        yanawa: debug
