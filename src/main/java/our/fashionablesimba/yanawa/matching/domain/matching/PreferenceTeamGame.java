@@ -1,8 +1,7 @@
 package our.fashionablesimba.yanawa.matching.domain.matching;
 
 public enum PreferenceTeamGame {
-    SINGLES("SINGLES"),
-    DOUBLES("DOUBLES"),
+    MATCH("MATCH"),
     RELLY("RELLY");
     private final String teamGame;
 

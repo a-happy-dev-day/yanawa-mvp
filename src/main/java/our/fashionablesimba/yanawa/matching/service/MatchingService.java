@@ -36,6 +36,7 @@ public class MatchingService {
     @Transactional
     public Matching recruit(Matching request) {
         log.debug("[{}][{}] recruit Matching", this.getClass(), this.getClass().getSimpleName());
+
         matchingRepository.findAllByUserId(request.getUserId()).stream().anyMatch(matching ->
         {
             if (matching.getMatchingDate().format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT))
@@ -56,9 +57,15 @@ public class MatchingService {
             throw new IllegalStateException("현재 매칭이 모집중이 아닙니다.");
         }
 
+        //인원 확인 로직 추가해야 함
+//        userMatchingRepository.findAllByMatchingId(matchingId).size();
+
+
         UserMatching userMatching = userMatchingRepository.save(new UserMatching(userId, matchingId));
 
-        if (matching.getPreferenceTeamGame().equals(PreferenceTeamGame.SINGLES)
+
+
+        if (matching.getPreferenceTeamGame().equals(PreferenceTeamGame.MATCH)
                 || userMatchingRepository.findAllByMatchingId(matchingId).stream().count() == 4) {
             completeRecruitment(matchingId);
         }
