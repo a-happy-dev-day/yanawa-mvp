@@ -33,10 +33,10 @@ public class Matching {
     protected Matching() {/*no-op*/}
 
     public Matching(Long matchingId, Long userId,
-                     LocalDateTime creationDate, LocalDateTime matchingDate,
-                     String tennisCourt, RatingLevel minimumLevel, RatingLevel maximumLevel,
-                     RecruitmentAge recruitmentAge, PreferenceTeamGame preferenceTeamGame,
-                     BigDecimal rentalCost, MatchingStatus status, Long recruitmentAnnual, String content) {
+                    LocalDateTime creationDate, LocalDateTime matchingDate,
+                    String tennisCourt, RatingLevel minimumLevel, RatingLevel maximumLevel,
+                    RecruitmentAge recruitmentAge, PreferenceTeamGame preferenceTeamGame,
+                    BigDecimal rentalCost, MatchingStatus status, Long recruitmentAnnual, String content) {
 
         if (rentalCost == null || rentalCost.compareTo(BigDecimal.ONE) < 0) {
             throw new IllegalArgumentException("코트 비용이 음수가 될 수 없습니다.");
