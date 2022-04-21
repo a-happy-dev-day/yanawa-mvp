@@ -57,16 +57,10 @@ public class MatchingService {
             throw new IllegalStateException("현재 매칭이 모집중이 아닙니다.");
         }
 
-        //인원 확인 로직 추가해야 함
-//        userMatchingRepository.findAllByMatchingId(matchingId).size();
-
-
         UserMatching userMatching = userMatchingRepository.save(new UserMatching(userId, matchingId));
 
-
-
-        if (matching.getPreferenceTeamGame().equals(PreferenceTeamGame.MATCH)
-                || userMatchingRepository.findAllByMatchingId(matchingId).stream().count() == 4) {
+        if (userMatchingRepository.findAllByMatchingId(matchingId).size()
+                == matchingRepository.findById(matchingId).orElseThrow(() -> new NotFoundDataException("매칭 정보가 존재하지 않습니다.")).getNumberOfMember()) {
             completeRecruitment(matchingId);
         }
         return userMatching;
@@ -120,7 +114,7 @@ public class MatchingService {
     public void completeReview(Long matchingId) {
         Matching matching = matchingRepository.findById(matchingId).orElseThrow(() -> new NotFoundDataException("매칭 정보가 존재하지 않습니다."));
         if (!matching.getStatus().equals(MatchingStatus.MATCHING_COMPLETED)) {
-            throw new IllegalStateException("현재 매칭이 끝나지 않습니다.");
+            throw new IllegalStateException("현재 매칭이 끝나지 않았습니다.");
         }
 
         matching.updateStatus(MatchingStatus.REVIEW_COMPLETED);
