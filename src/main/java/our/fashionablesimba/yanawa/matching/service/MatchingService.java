@@ -59,21 +59,11 @@ public class MatchingService {
 
         UserMatching userMatching = userMatchingRepository.save(new UserMatching(userId, matchingId));
 
-        if (userMatchingRepository.findAllByMatchingId(matchingId).size()
-                == matchingRepository.findById(matchingId).orElseThrow(() -> new NotFoundDataException("매칭 정보가 존재하지 않습니다.")).getNumberOfMember()) {
-            completeRecruitment(matchingId);
+        if (callCurrentNumberOfMember(matchingId) > callNumberOfMemeber(matchingId)) {
+            throw new IllegalStateException("모집 정원 초가합니다.");
         }
+        completeRecruitment(matchingId);
         return userMatching;
-    }
-
-    @Scheduled(fixedDelayString = "${fixed.delay.seconds:60}000")
-    public void CallToCompleteMatching() {
-        log.debug("[{}][{}] Call to complete matching", this.getClass(), this.getClass().getSimpleName());
-        matchingRepository.findAll().forEach(matching -> {
-            if (matching.getStatus().equals(MatchingStatus.MATCHING_PROGRESS) && matching.getMatchingDate().plusHours(4).isAfter(LocalDateTime.now())) {
-                completeMatch(matching.getMatchingId());
-            }
-        });
     }
 
     @Transactional
@@ -128,6 +118,24 @@ public class MatchingService {
     @Transactional(readOnly = true)
     public List<Matching> findAll() {
         return matchingRepository.findAll();
+    }
+
+    @Scheduled(fixedDelayString = "${fixed.delay.seconds:60}000")
+    public void CallToCompleteMatching() {
+        log.debug("[{}][{}] Call to complete matching", this.getClass(), this.getClass().getSimpleName());
+        matchingRepository.findAll().forEach(matching -> {
+            if (matching.getStatus().equals(MatchingStatus.MATCHING_PROGRESS) && matching.getMatchingDate().plusHours(4).isAfter(LocalDateTime.now())) {
+                completeMatch(matching.getMatchingId());
+            }
+        });
+    }
+
+    private int callNumberOfMemeber(Long matchingId) {
+        return matchingRepository.findById(matchingId).orElseThrow(() -> new NotFoundDataException("매칭 정보가 존재하지 않습니다.")).getNumberOfMember() + 1;
+    }
+
+    private int callCurrentNumberOfMember(Long matchingId) {
+        return userMatchingRepository.findAllByMatchingId(matchingId).size();
     }
 
 }
