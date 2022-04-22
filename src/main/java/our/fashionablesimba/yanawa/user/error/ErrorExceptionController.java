@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import our.fashionablesimba.yanawa.user.domain.User;
 import our.fashionablesimba.yanawa.user.exception.EmailDuplicationException;
+import our.fashionablesimba.yanawa.user.exception.LoginFailedException;
 import our.fashionablesimba.yanawa.user.exception.UserNotFoundException;
 
 import java.util.List;
@@ -49,7 +50,16 @@ public class ErrorExceptionController {
         return buildError(accountNotFound);
     }
 
+    @ExceptionHandler(value = {
+            LoginFailedException.class
+    })
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    protected ErrorResponse handleLoginFailedException(LoginFailedException e) {
 
+        final ErrorCode loginFaild = ErrorCode.LOGIN_FAILD;
+        log.error(loginFaild.getMessage(), e.getMessage());
+        return buildError(loginFaild);
+    }
 
 //    @ExceptionHandler(PasswordFailedExceededException.class)
 //    @ResponseStatus(HttpStatus.BAD_REQUEST)

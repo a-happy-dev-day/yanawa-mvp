@@ -13,15 +13,14 @@ import java.time.LocalDate;
 
 public class UserDto {
 
-    @Getter
+    @Getter @Setter
     @NoArgsConstructor(access = AccessLevel.PROTECTED)
     public static class SignUpReq {
-
 
         @Valid
         private Email email;
 
-        @NotEmpty(message="PASSWORD_IS_MANDATORY")
+        @NotEmpty(message="비밀번호는 필수입니다.")
         private String password;
 
         @NotEmpty
@@ -34,13 +33,16 @@ public class UserDto {
 
         private LocalDate birth;
 
+        private int level;
+
         @Builder
-        public SignUpReq(Email email, String nickname, String password, String sex, LocalDate birth) {
+        public SignUpReq(Email email, String nickname, String password, String sex, LocalDate birth, int level) {
             this.email = email;
             this.password = password;
             this.nickname = nickname;
             this.sex = sex;
             this.birth = birth;
+            this.level = level;
         }
 
         public User toEntity() {
@@ -50,10 +52,11 @@ public class UserDto {
                     .nickname(this.nickname)
                     .sex(this.sex)
                     .birth(this.birth)
+                    .level(this.level)
                     .build();
         }
-
     }
+
     @Getter
     @NoArgsConstructor(access = AccessLevel.PROTECTED)
     public static class Res {
@@ -66,16 +69,29 @@ public class UserDto {
 
         private LocalDate birth;
 
+        private int level;
+
         public Res(User user) {
             this.email = user.getEmail();
             this.nickname = user.getNickname();
             this.sex = user.getSex();
             this.birth = user.getBirth();
+            this.level = user.getLevel();
         }
 
     }
 
 
+    @Getter
+    @NoArgsConstructor(access = AccessLevel.PROTECTED)
+    public static class SingInReq {
+
+        @Valid
+        private Email email;
+
+        @NotEmpty(message="비밀번호는 필수입니다.")
+        private String password;
 
 
+    }
 }
