@@ -1,18 +1,17 @@
 package our.fashionablesimba.yanawa.matching.service;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.provider.ValueSource;
-import our.fashionablesimba.yanawa.matching.domain.NotificationReviewClient;
+import our.fashionablesimba.yanawa.matching.domain.matchingreview.MatchingReviewRepository;
+import our.fashionablesimba.yanawa.matching.domain.matchingreview.NotificationReviewClient;
 import our.fashionablesimba.yanawa.matching.domain.matching.Matching;
 import our.fashionablesimba.yanawa.matching.domain.matching.MatchingRepository;
 import our.fashionablesimba.yanawa.matching.domain.usermatching.UserMatchingRepository;
 import our.fashionablesimba.yanawa.matching.fixture.FakeNotificationReviewClient;
 import our.fashionablesimba.yanawa.matching.fixture.MemoryMatchingRepository;
+import our.fashionablesimba.yanawa.matching.fixture.MemoryMatchingReviewRepository;
 import our.fashionablesimba.yanawa.matching.fixture.MemoryUserMatchingRepository;
-
-import java.util.List;
 
 import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
@@ -23,8 +22,9 @@ class MatchingServiceTest {
     private MatchingRepository matchingRepository = new MemoryMatchingRepository();
     private UserMatchingRepository userMatchingRepository = new MemoryUserMatchingRepository();
     private NotificationReviewClient notificationReviewClient = new FakeNotificationReviewClient();
+    private MatchingReviewRepository matchingReviewRepository = new MemoryMatchingReviewRepository();
 
-    MatchingService matchingService = new MatchingService(matchingRepository, userMatchingRepository, notificationReviewClient);
+    MatchingService matchingService = new MatchingService(matchingRepository, userMatchingRepository, matchingReviewRepository, notificationReviewClient);
 
     @Test
     @DisplayName("매칭 등록")
