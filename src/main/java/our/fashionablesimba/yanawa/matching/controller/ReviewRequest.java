@@ -1,6 +1,8 @@
-package our.fashionablesimba.yanawa.matching.domain.matchingreview;
+package our.fashionablesimba.yanawa.matching.controller;
 
-public class MatchingReview {
+import our.fashionablesimba.yanawa.matching.domain.matchingreview.MatchingReview;
+
+public class ReviewRequest {
     private Long reviewId;
     private Long userId;
     private Long matchingId;
@@ -9,25 +11,15 @@ public class MatchingReview {
     private int partnerScore;
     private String review;
 
+    protected ReviewRequest() {/*no-op*/}
 
-    protected MatchingReview() {/*no-op*/}
-
-    public MatchingReview(Long reviewId, Long userId, Long matchingId, Long partnerId, int userScore, int partnerScore, String review) {
-
-        if (partnerScore < 0 || userScore < 0) {
-            throw new IllegalArgumentException("점수에는 음수가 들어갈 수 없습니다.");
-        }
-
-        if (userId == partnerId) {
-            throw new IllegalArgumentException("자신과 파트너가 같은 아이디를 가지고 있습니다.");
-        }
-
+    public ReviewRequest(Long reviewId, Long userId, Long matchingId, Long partnerId, int userScore, int partnerScore, String review) {
         this.reviewId = reviewId;
         this.userId = userId;
         this.matchingId = matchingId;
         this.partnerId = partnerId;
-        this.partnerScore = partnerScore;
         this.userScore = userScore;
+        this.partnerScore = partnerScore;
         this.review = review;
     }
 
@@ -43,6 +35,10 @@ public class MatchingReview {
         return matchingId;
     }
 
+    public Long getPartnerId() {
+        return partnerId;
+    }
+
     public int getUserScore() {
         return userScore;
     }
@@ -55,7 +51,8 @@ public class MatchingReview {
         return review;
     }
 
-    public Long getPartnerId() {
-        return partnerId;
+    public MatchingReview toMatching() {
+        return new MatchingReview(this.reviewId, this.userId, this.matchingId, this.partnerId,
+                this.userScore, this.partnerScore, this.review);
     }
 }

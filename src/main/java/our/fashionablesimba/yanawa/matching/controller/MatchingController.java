@@ -10,6 +10,7 @@ import our.fashionablesimba.yanawa.matching.domain.usermatching.UserMatching;
 import our.fashionablesimba.yanawa.matching.service.MatchingService;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Repository
 @RequestMapping("matching")
@@ -22,8 +23,12 @@ public class MatchingController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Matching>> findAll() {
-        return ResponseEntity.ok(matchingService.findAll());
+    public ResponseEntity<List<MatchingResponse>> findAll() {
+        return ResponseEntity.ok(
+                matchingService.findAll().stream()
+                        .map(matching -> new MatchingResponse(matching))
+                        .collect(Collectors.toList())
+        );
     }
 
     //매칭 등록

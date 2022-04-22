@@ -1,6 +1,7 @@
 package our.fashionablesimba.yanawa.matching.fixture;
 
 import our.fashionablesimba.yanawa.matching.domain.matching.*;
+import our.fashionablesimba.yanawa.matching.domain.matchingreview.MatchingReview;
 import our.fashionablesimba.yanawa.matching.domain.usermatching.UserMatching;
 
 import java.math.BigDecimal;
@@ -21,6 +22,12 @@ public class MatchingFixture {
             만원, null, "tennisCourt", 1, 2);
 
 
+    public static final Matching 매칭_4인 = new Matching(0L, LocalDateTime.now().plusDays(1L),
+            RatingLevel.A, RatingLevel.B,
+            RecruitmentAge.TWENTIES, PreferenceTeamGame.MATCH,
+            만원, null, "tennisCourt", 1, 4);
+
+
     public static final Matching 모집중인_매칭 =
             new Matching(null, 0L, LocalDateTime.now(), LocalDateTime.now().plusDays(1L),
                     "tennisCourt", 2, RatingLevel.A, RatingLevel.B,
@@ -39,10 +46,17 @@ public class MatchingFixture {
                     만원, MatchingStatus.MATCHING_PROGRESS, 1, "");
 
     public static final Matching 완료된_매칭 =
-            new Matching(null, 0L, LocalDateTime.now(), LocalDateTime.now().plusDays(1L),
+            new Matching(null, 0L, LocalDateTime.now(), LocalDateTime.now().plusHours(10L),
                     "tennisCourt", 2, RatingLevel.A, RatingLevel.B,
                     RecruitmentAge.TWENTIES, PreferenceTeamGame.MATCH,
                     만원, MatchingStatus.MATCHING_COMPLETED, 1, "");
+
+    public static final Matching 끝난지_얼마안된_매칭 =
+            new Matching(null, 0L, LocalDateTime.now(), LocalDateTime.now().plusMinutes(4L),
+                    "tennisCourt", 2, RatingLevel.A, RatingLevel.B,
+                    RecruitmentAge.TWENTIES, PreferenceTeamGame.MATCH,
+                    만원, MatchingStatus.MATCHING_COMPLETED, 1, "");
+
 
     public static final Matching 매칭_후기_완료 =
             new Matching(null, 0L, LocalDateTime.now(), LocalDateTime.now().plusDays(1L),
@@ -52,4 +66,5 @@ public class MatchingFixture {
 
 
     public static final UserMatching 사용자매칭 = new UserMatching(1L, 1L);
+
 }

@@ -25,14 +25,11 @@ public class MatchingService {
 
     private final MatchingRepository matchingRepository;
     private final UserMatchingRepository userMatchingRepository;
-    private final MatchingReviewRepository matchingReviewRepository;
-
     private final NotificationReviewClient matchingReviewClient;
 
-    public MatchingService(MatchingRepository matchingRepository, UserMatchingRepository userMatchingRepository, MatchingReviewRepository matchingReviewRepository, NotificationReviewClient matchingReviewClient) {
+    public MatchingService(MatchingRepository matchingRepository, UserMatchingRepository userMatchingRepository , NotificationReviewClient matchingReviewClient) {
         this.matchingRepository = matchingRepository;
         this.userMatchingRepository = userMatchingRepository;
-        this.matchingReviewRepository = matchingReviewRepository;
         this.matchingReviewClient = matchingReviewClient;
     }
 
@@ -59,6 +56,11 @@ public class MatchingService {
                 .orElseThrow(() -> new NotFoundDataException("매칭 정보가 존재하지 않습니다."));
         if (!matching.getStatus().equals(MatchingStatus.RECRUITING)) {
             throw new IllegalStateException("현재 매칭이 모집중이 아닙니다.");
+        }
+
+        if (userMatchingRepository.findAllByMatchingId(matchingId)
+                .stream().anyMatch(userMatching -> userMatching.getUserId().equals(userId))) {
+            throw new IllegalStateException("이미 신청한 매칭입니다.");
         }
 
         UserMatching userMatching = userMatchingRepository.save(new UserMatching(userId, matchingId));
@@ -110,26 +112,6 @@ public class MatchingService {
         matching.updateStatus(MatchingStatus.MATCHING_COMPLETED);
         matchingRepository.save(matching);
 
-    }
-
-    public MatchingReview review(MatchingReview matchingReview) {
-
-        Matching matching = matchingRepository
-                .findById(matchingReview.getMatchingId())
-                .orElseThrow(() -> new NotFoundDataException("메칭이 존재하지 않습니다."));
-
-        if (matching.getStatus() != MatchingStatus.MATCHING_COMPLETED) {
-            throw new IllegalStateException("매칭이 완료되지 않았습니다.");
-        }
-
-        if (matching.getMatchingDate().plusMinutes(10L).isAfter(LocalDateTime.now())) {
-            throw new IllegalStateException("매칭이 시작된지 10분 밖에 지나지 않았습니다.");
-        }
-
-        matching.updateStatus(MatchingStatus.REVIEW_COMPLETED);
-        matchingRepository.save(matching);
-
-        return matchingReviewRepository.save(matchingReview);
     }
 
     @Transactional

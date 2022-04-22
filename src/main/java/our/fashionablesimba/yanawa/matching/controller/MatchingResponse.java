@@ -18,7 +18,6 @@ public class MatchingResponse {
     private final RatingLevel maximumLevel;
     private final String content;
     private int numberOfMember;
-
     private final int recruitmentAnnual;
     private final PreferenceTeamGame teamGame;
     private final BigDecimal rentalCost;

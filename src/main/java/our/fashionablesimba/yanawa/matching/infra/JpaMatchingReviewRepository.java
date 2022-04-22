@@ -17,4 +17,6 @@ public interface JpaMatchingReviewRepository extends JpaRepository<MatchingRevie
     Optional<MatchingReview> findById(Long matchingReviewId);
 
     List<MatchingReview> findByMatchingId(Long matchingId);
+
+    List<MatchingReview> findByUserId(Long userId);
 }

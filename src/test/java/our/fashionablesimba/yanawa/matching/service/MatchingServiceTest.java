@@ -3,6 +3,7 @@ package our.fashionablesimba.yanawa.matching.service;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.provider.ValueSource;
+import our.fashionablesimba.yanawa.matching.domain.matchingreview.MatchingReview;
 import our.fashionablesimba.yanawa.matching.domain.matchingreview.MatchingReviewRepository;
 import our.fashionablesimba.yanawa.matching.domain.matchingreview.NotificationReviewClient;
 import our.fashionablesimba.yanawa.matching.domain.matching.Matching;
@@ -22,9 +23,8 @@ class MatchingServiceTest {
     private MatchingRepository matchingRepository = new MemoryMatchingRepository();
     private UserMatchingRepository userMatchingRepository = new MemoryUserMatchingRepository();
     private NotificationReviewClient notificationReviewClient = new FakeNotificationReviewClient();
-    private MatchingReviewRepository matchingReviewRepository = new MemoryMatchingReviewRepository();
 
-    MatchingService matchingService = new MatchingService(matchingRepository, userMatchingRepository, matchingReviewRepository, notificationReviewClient);
+    MatchingService matchingService = new MatchingService(matchingRepository, userMatchingRepository, notificationReviewClient);
 
     @Test
     @DisplayName("매칭 등록")
@@ -55,7 +55,7 @@ class MatchingServiceTest {
     }
 
     @Test
-    @DisplayName("매칭을 요청할 때, 신청한 사람이 모집인원과 같지 않으면 IllegalStateException 예외 발생")
+    @DisplayName("매칭을 요청할 때, 모집인원과 같지 않으면 IllegalStateException 예외 발생")
     void test4() {
         Matching matching = matchingRepository.save(매칭_2인);
         matchingService.apply(2L, matching.getMatchingId());
@@ -198,4 +198,16 @@ class MatchingServiceTest {
                 }
         );
     }
+
+    @Test
+    @DisplayName("이미 신청한 매칭에 지원하면 예외 발생")
+    void test10() {
+        Matching matching = matchingRepository.save(매칭_4인);
+        matchingService.apply(2L, matching.getMatchingId());
+        assertThatThrownBy(
+                () -> matchingService.apply(2L, matching.getMatchingId())
+        ).isInstanceOf(IllegalStateException.class);
+    }
+
+
 }

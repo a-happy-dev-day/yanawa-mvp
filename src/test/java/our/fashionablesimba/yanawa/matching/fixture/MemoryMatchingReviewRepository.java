@@ -1,7 +1,5 @@
 package our.fashionablesimba.yanawa.matching.fixture;
 
-import our.fashionablesimba.yanawa.matching.domain.matching.Matching;
-import our.fashionablesimba.yanawa.matching.domain.matching.MatchingRepository;
 import our.fashionablesimba.yanawa.matching.domain.matchingreview.MatchingReview;
 import our.fashionablesimba.yanawa.matching.domain.matchingreview.MatchingReviewRepository;
 
@@ -18,7 +16,7 @@ public class MemoryMatchingReviewRepository implements MatchingReviewRepository 
     @Override
     public MatchingReview save(MatchingReview matchingReview) {
         Long id = ++sequence;
-        MatchingReview review = new MatchingReview(id, matchingReview.getUserId(), matchingReview.getMatchingId(), matchingReview.getScore(), matchingReview.getReview());
+        MatchingReview review = new MatchingReview(id, matchingReview.getUserId(), matchingReview.getMatchingId(), matchingReview.getPartnerId(), matchingReview.getUserScore(), matchingReview.getPartnerScore(), matchingReview.getReview());
         reviewMap.put(id, review);
         return review;
     }
@@ -31,5 +29,10 @@ public class MemoryMatchingReviewRepository implements MatchingReviewRepository 
     @Override
     public List<MatchingReview> findByMatchingId(Long matchingId) {
         return reviewMap.values().stream().filter(matchingReview -> matchingReview.getMatchingId().equals(matchingId)).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<MatchingReview> findByUserId(Long userId) {
+        return reviewMap.values().stream().filter(matchingReview -> matchingReview.getUserId().equals(userId)).collect(Collectors.toList());
     }
 }
