@@ -9,7 +9,7 @@ import java.util.List;
 
 @Repository
 
-public interface JPAUserMatchingRepository extends JpaRepository<UserMatching, Long>, UserMatchingRepository {
+public interface JpaUserMatchingRepository extends JpaRepository<UserMatching, Long>, UserMatchingRepository {
     @Override
     UserMatching save(UserMatching entity);
 

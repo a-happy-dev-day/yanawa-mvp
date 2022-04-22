@@ -1,6 +1,6 @@
 package our.fashionablesimba.yanawa.matching.fixture;
 
-import our.fashionablesimba.yanawa.matching.domain.NotificationReviewClient;
+import our.fashionablesimba.yanawa.matching.domain.matchingreview.NotificationReviewClient;
 
 public class FakeNotificationReviewClient implements NotificationReviewClient {
     @Override
