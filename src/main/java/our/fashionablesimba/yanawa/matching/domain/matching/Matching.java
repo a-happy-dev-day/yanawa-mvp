@@ -1,9 +1,6 @@
 package our.fashionablesimba.yanawa.matching.domain.matching;
 
-import javax.persistence.Entity;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
@@ -17,15 +14,15 @@ public class Matching {
     private LocalDateTime matchingDate;
     private String tennisCourtName;
     private int numberOfMember;
-    @Enumerated
+    @Enumerated(EnumType.STRING)
     private RatingLevel minimumLevel;
-    @Enumerated
+    @Enumerated(EnumType.STRING)
     private RatingLevel maximumLevel;
-    @Enumerated
+    @Enumerated(EnumType.STRING)
     private RecruitmentAge recruitmentAge;
-    @Enumerated
+    @Enumerated(EnumType.STRING)
     private PreferenceTeamGame preferenceTeamGame;
-    @Enumerated
+    @Enumerated(EnumType.STRING)
     private MatchingStatus status;
     private BigDecimal rentalCost;
     private int recruitmentAnnual;
