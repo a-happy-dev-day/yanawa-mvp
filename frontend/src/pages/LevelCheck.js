@@ -6,9 +6,14 @@ import { LevelCheckData } from "../assets/data/levelcheckdata";
 
 const LevelCheck = () => {
   const [levelCheckNum, setLevelCheckNum] = useState(0);
+  const [activeButton, setActiveButton] = useState(1);
 
-  const nextStep = () => {
+  const ToNextCheckPage = () => {
     setLevelCheckNum(levelCheckNum + 1);
+  };
+
+  const changeHandler = (checked) => {
+    setActiveButton(!checked);
   };
 
   return (
@@ -20,16 +25,27 @@ const LevelCheck = () => {
       <Title>
         나의 {LevelCheckData[levelCheckNum].title} 실력은 어느정도 인가요?
       </Title>
-      <form>
-        {LevelCheckData[levelCheckNum].level.map((data, index) => (
-          <div key={index}>
-            <Input id={index} type='radio' name='check'></Input>
-            <Label htmlFor={index}>{data}</Label>
-          </div>
-        ))}
-      </form>
+      <CheckListForm>
+        <form>
+          {LevelCheckData[levelCheckNum].level.map((data, index) => (
+            <div key={index}>
+              <Input
+                id={index}
+                type='radio'
+                name='check'
+                onChange={(e) => {
+                  changeHandler(e.currentTarget.checked);
+                }}
+              ></Input>
+              <Label htmlFor={index}>{data}</Label>
+            </div>
+          ))}
+        </form>
+      </CheckListForm>
 
-      <NextButton onClick={nextStep}>다음으로 (1/5)</NextButton>
+      <NextButton disabled={activeButton} onClick={ToNextCheckPage}>
+        다음으로 ({levelCheckNum + 2}/5)
+      </NextButton>
     </Wrapper>
   );
 };
@@ -62,12 +78,22 @@ const Title = styled.div`
   margin-bottom: 44px;
 `;
 
+const CheckListForm = styled.div`
+  overflow: scroll;
+  height: 500px;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+  &::-webkit-scrollbar {
+    display: none;
+  }
+`;
+
 const Label = styled.label`
   position: relative;
   box-sizing: border-box;
   display: flex;
   align-items: center;
-  height: 55px;
+  height: 70px;
   text-align: left;
   background-color: rgba(235, 236, 237, 1);
   cursor: pointer;
@@ -101,7 +127,7 @@ const Input = styled.input`
   &:checked + ${Label} {
     &::after {
       position: absolute;
-      top: 22px;
+      top: 30px;
       left: 24px;
       content: "";
       color: #61768b;
@@ -129,4 +155,8 @@ const NextButton = styled.button`
   border-radius: 10px;
   color: #fff;
   margin-top: 324px;
+  transition: all 0.7s ease;
+  &:disabled {
+    background-color: #999;
+  }
 `;

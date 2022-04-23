@@ -1,21 +1,61 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { FaChevronLeft } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 
 const HobbyChoice = () => {
   const navigate = useNavigate();
+  const [activeButton, setActiveButton] = useState(1);
+
+  const sports = [
+    {
+      name: "tennis",
+      title: "🎾테니스",
+    },
+    {
+      name: "soccer",
+      title: "⚽축구",
+    },
+    {
+      name: "basketball",
+      title: "🏀농구",
+    },
+    {
+      name: "golf",
+      title: "⛳골프",
+    },
+  ];
+
+  const changeHandler = (checked) => {
+    setActiveButton(!checked);
+  };
+
   return (
     <Wrapper>
       <Header>
         <FaChevronLeft style={{ paddingRight: "3px" }} /> 취미선택
       </Header>
       <Title>매칭받고 싶은 취미를 선택해 주세요! (1가지)</Title>
-      <Button>🎾테니스</Button>
-      <Button>⚽축구</Button>
-      <Button>🏀테니스</Button>
-      <Button>⛳골프</Button>
-      <NextButton onClick={() => navigate("/levelyear")}>
+      <form>
+        {sports.map((data, index) => (
+          <div key={index}>
+            <Input
+              onChange={(e) => {
+                changeHandler(e.currentTarget.checked);
+              }}
+              type='radio'
+              id={data.name}
+              name='hobby'
+            />
+            <Label htmlFor={data.name}>{data.title}</Label>
+          </div>
+        ))}
+      </form>
+
+      <NextButton
+        disabled={activeButton}
+        onClick={() => navigate("/levelyear")}
+      >
         레벨 측정 시작
       </NextButton>
     </Wrapper>
@@ -50,17 +90,26 @@ const Title = styled.div`
   margin-bottom: 44px;
 `;
 
-const Button = styled.button`
-  width: 100%;
+const Label = styled.label`
+  display: block;
+  text-align: center;
   background-color: transparent;
   cursor: pointer;
   border: 1px solid rgba(68, 68, 68, 1);
   font-size: 14px;
   font-family: inherit;
-  padding: 12px 0 11px;
+  padding: 14px 0 13px;
   border-radius: 22px;
   margin-bottom: 10px;
   &:hover {
+    background-color: rgba(0, 39, 253, 1);
+    color: #fff;
+  }
+`;
+
+const Input = styled.input`
+  display: none;
+  &:checked + ${Label} {
     background-color: rgba(0, 39, 253, 1);
     color: #fff;
   }
@@ -81,4 +130,8 @@ const NextButton = styled.button`
   border-radius: 10px;
   color: #fff;
   margin-top: 324px;
+  transition: all 0.7s ease;
+  &:disabled {
+    background-color: #999;
+  }
 `;

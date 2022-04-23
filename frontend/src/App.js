@@ -5,6 +5,7 @@ import { Reset } from "styled-reset";
 import HobbyChoice from "./pages/HobbyChoice";
 import LevelCheck from "./pages/LevelCheck";
 import LevelYear from "./pages/LevelYear.js";
+import LevelResult from "./pages/LevelResult";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Route path='/hobbychoice' element={<HobbyChoice />} />
         <Route path='/levelyear' element={<LevelYear />} />
         <Route path='/levelcheck' element={<LevelCheck />} />
+        <Route path='/levelresult' element={<LevelResult />} />
       </Routes>
     </div>
   );

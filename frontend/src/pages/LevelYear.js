@@ -1,10 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { FaChevronLeft } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 
 const LevelYear = () => {
   const navigate = useNavigate();
+  const [activeButton, setActiveButton] = useState(1);
+
+  const changeHandler = (value) => {
+    if (value.length > 0) {
+      setActiveButton(0);
+    } else {
+      setActiveButton(1);
+    }
+  };
 
   return (
     <Wrapper>
@@ -13,11 +22,22 @@ const LevelYear = () => {
       </Header>
       <form>
         <Label htmlFor='year'>테니스를 얼마동안 하셨나요?</Label>
-        <Input type='number' min='0' id='year' placeholder='N년차'></Input>
+        <Input
+          onChange={(e) => {
+            changeHandler(e.currentTarget.value);
+          }}
+          type='number'
+          min='0'
+          id='year'
+          placeholder='N년차'
+        ></Input>
       </form>
 
-      <NextButton onClick={() => navigate("/levelcheck")}>
-        레벨 측정 시작
+      <NextButton
+        disabled={activeButton}
+        onClick={() => navigate("/levelcheck")}
+      >
+        다음으로 (1/5)
       </NextButton>
     </Wrapper>
   );
@@ -74,4 +94,8 @@ const NextButton = styled.button`
   border-radius: 10px;
   color: #fff;
   margin-top: 324px;
+  transition: all 0.7s ease;
+  &:disabled {
+    background-color: #999;
+  }
 `;
