@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Repository
-@RequestMapping("matching")
+@RequestMapping("api/matching")
 public class MatchingController {
 
     private final MatchingService matchingService;

@@ -1,6 +1,13 @@
 package our.fashionablesimba.yanawa.matching.domain.matchingreview;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+@Entity
 public class MatchingReview {
+    @Id
+    @GeneratedValue
     private Long reviewId;
     private Long userId;
     private Long matchingId;

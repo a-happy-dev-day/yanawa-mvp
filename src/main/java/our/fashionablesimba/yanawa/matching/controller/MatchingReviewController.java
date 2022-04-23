@@ -11,7 +11,7 @@ import our.fashionablesimba.yanawa.matching.service.MatchingReviewService;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@RestController("matching/review")
+@RestController("api/matching/review")
 public class MatchingReviewController {
 
     private final MatchingReviewService matchingReviewService;
