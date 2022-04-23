@@ -35,16 +35,4 @@ public class UserController {
         return ResponseEntity.ok(new UserDto.Res(userService.findById(userId)));
     }
 
-    /**
-     * 매칭 리뷰 controller에서 처리
-     */
-//    @PutMapping("/{updateLevel}")
-//    public ResponseEntity<UserDto.Res> getUser(@PathVariable final int updateLevel) {
-//
-//        UserDto.Res res = userService.updateUser(1, updateLevel);
-//        return ResponseEntity.ok(res);
-//
-//    }
-
-
 }

@@ -8,7 +8,6 @@ import our.fashionablesimba.yanawa.matching.domain.usermatching.UserMatchingRepo
 import java.util.List;
 
 @Repository
-
 public interface JpaUserMatchingRepository extends JpaRepository<UserMatching, Long>, UserMatchingRepository {
     @Override
     UserMatching save(UserMatching entity);
