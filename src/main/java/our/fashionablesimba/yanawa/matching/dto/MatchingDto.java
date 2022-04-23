@@ -1,4 +1,4 @@
-package our.fashionablesimba.yanawa.matching.controller;
+package our.fashionablesimba.yanawa.matching.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
@@ -13,11 +13,12 @@ import our.fashionablesimba.yanawa.matching.domain.matching.RecruitmentAge;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-public class MatchingRequest {
+public class MatchingDto {
     private Long userId;
     private String tennisCourtName;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm", timezone = "Asia/Seoul")
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)
+    @JsonSerialize(using = LocalDateTimeSerializer.class)
     private LocalDateTime matchingData;
     private int numberOfMember;
     private RecruitmentAge age;
@@ -28,11 +29,11 @@ public class MatchingRequest {
     private PreferenceTeamGame teamGame;
     private BigDecimal rentalCost;
 
-    public MatchingRequest() {/*no-op*/}
+    public MatchingDto() {/*no-op*/}
 
-    public MatchingRequest(Long userId, String tennisCourtName, LocalDateTime matchingData, int numberOfMember, RecruitmentAge age,
-                           RatingLevel minimumLevel, RatingLevel maximumLevel, String content, int recruitmentAnnual,
-                           PreferenceTeamGame teamGame, BigDecimal rentalCost) {
+    public MatchingDto(Long userId, String tennisCourtName, LocalDateTime matchingData, int numberOfMember, RecruitmentAge age,
+                       RatingLevel minimumLevel, RatingLevel maximumLevel, String content, int recruitmentAnnual,
+                       PreferenceTeamGame teamGame, BigDecimal rentalCost) {
 
         this.userId = userId;
         this.tennisCourtName = tennisCourtName;
@@ -96,6 +97,12 @@ public class MatchingRequest {
                 age, teamGame, rentalCost, content, tennisCourtName, recruitmentAnnual, numberOfMember);
     }
 
+    public MatchingDto(Matching matching) {
+        this(matching.getUserId(), matching.getTennisCourtName(), matching.getMatchingDate(), matching.getNumberOfMember(),
+                matching.getRecruitmentAge(), matching.getMinimumLevel(), matching.getMaximumLevel(),
+                matching.getMatchingContent(), matching.getRecruitmentAnnual(), matching.getPreferenceTeamGame(),
+                matching.getRentalCost());
+    }
 
 
 }

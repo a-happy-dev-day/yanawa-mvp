@@ -1,4 +1,4 @@
-package our.fashionablesimba.yanawa.matching.controller;
+package our.fashionablesimba.yanawa.matching.dto;
 
 import our.fashionablesimba.yanawa.matching.domain.matchingreview.MatchingReview;
 

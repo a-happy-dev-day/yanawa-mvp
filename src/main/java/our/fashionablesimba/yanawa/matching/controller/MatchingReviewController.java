@@ -1,11 +1,11 @@
 package our.fashionablesimba.yanawa.matching.controller;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
-import our.fashionablesimba.yanawa.matching.domain.matchingreview.MatchingReview;
+import our.fashionablesimba.yanawa.matching.dto.ReviewRequest;
+import our.fashionablesimba.yanawa.matching.dto.ReviewResponse;
 import our.fashionablesimba.yanawa.matching.service.MatchingReviewService;
 
 import java.util.List;
@@ -20,7 +20,6 @@ public class MatchingReviewController {
         this.matchingReviewService = matchingReviewService;
     }
 
-    // 리뷰 작성
     @PostMapping
     public ResponseEntity<ReviewResponse> writeReview(ReviewRequest request) {
         return ResponseEntity.ok(
@@ -28,7 +27,6 @@ public class MatchingReviewController {
         );
     }
 
-    // 자신의 리뷰 찾기
     @GetMapping("{userId}")
     public ResponseEntity<List<ReviewResponse>> findMyReview(Long userId) {
         return ResponseEntity.ok(

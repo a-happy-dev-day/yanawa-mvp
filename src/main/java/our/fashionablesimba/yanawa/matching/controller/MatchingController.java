@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import our.fashionablesimba.yanawa.matching.domain.matching.Matching;
 import our.fashionablesimba.yanawa.matching.domain.usermatching.UserMatching;
+import our.fashionablesimba.yanawa.matching.dto.MatchingDto;
 import our.fashionablesimba.yanawa.matching.service.MatchingService;
 
 import java.util.List;
@@ -28,24 +29,22 @@ public class MatchingController {
     }
 
     @GetMapping
-    public ResponseEntity<List<MatchingResponse>> findAll() {
+    public ResponseEntity<List<MatchingDto>> findAll() {
         return ResponseEntity.ok(
                 matchingService.findAll().stream()
-                        .map(matching -> new MatchingResponse(matching))
+                        .map(matching -> new MatchingDto(matching))
                         .collect(Collectors.toList())
         );
     }
 
-    //매칭 등록
     @PostMapping
-    public ResponseEntity<HttpStatus> recruitPartner(@RequestBody MatchingRequest matchingRequest) {
+    public ResponseEntity<MatchingDto> recruitPartner(@RequestBody MatchingDto matchingRequest) {
         Matching matching = matchingService.recruit(matchingRequest.toMatching());
-        MatchingResponse result = new MatchingResponse(matching);
+        MatchingDto result = new MatchingDto(matching);
         log.info("{}", result.toString());
-        return ResponseEntity.ok(HttpStatus.CREATED);
+        return ResponseEntity.ok(new MatchingDto(matching));
     }
 
-    //매칭 신청
     @PostMapping("apply")
     public ResponseEntity<HttpStatus> apply(Long userId, Long matchingId) {
         UserMatching userMatching = matchingService.apply(userId, matchingId);

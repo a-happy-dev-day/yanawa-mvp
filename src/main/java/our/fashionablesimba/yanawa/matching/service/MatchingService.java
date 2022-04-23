@@ -5,13 +5,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import our.fashionablesimba.yanawa.matching.domain.matchingreview.MatchingReview;
-import our.fashionablesimba.yanawa.matching.domain.matchingreview.MatchingReviewRepository;
 import our.fashionablesimba.yanawa.matching.domain.matchingreview.NotificationReviewClient;
 import our.fashionablesimba.yanawa.matching.domain.matching.*;
 import our.fashionablesimba.yanawa.matching.domain.usermatching.UserMatching;
 import our.fashionablesimba.yanawa.matching.domain.usermatching.UserMatchingRepository;
-import our.fashionablesimba.yanawa.matching.error.NotFoundDataException;
+import our.fashionablesimba.yanawa.matching.exception.NotFoundMatchingException;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -27,7 +25,7 @@ public class MatchingService {
     private final UserMatchingRepository userMatchingRepository;
     private final NotificationReviewClient matchingReviewClient;
 
-    public MatchingService(MatchingRepository matchingRepository, UserMatchingRepository userMatchingRepository , NotificationReviewClient matchingReviewClient) {
+    public MatchingService(MatchingRepository matchingRepository, UserMatchingRepository userMatchingRepository, NotificationReviewClient matchingReviewClient) {
         this.matchingRepository = matchingRepository;
         this.userMatchingRepository = userMatchingRepository;
         this.matchingReviewClient = matchingReviewClient;
@@ -53,7 +51,7 @@ public class MatchingService {
     public UserMatching apply(Long userId, Long matchingId) {
         log.debug("[{}][{}] apply Matching", this.getClass(), this.getClass().getSimpleName());
         Matching matching = matchingRepository.findById(matchingId)
-                .orElseThrow(() -> new NotFoundDataException("매칭 정보가 존재하지 않습니다."));
+                .orElseThrow(NotFoundMatchingException::new);
         if (!matching.getStatus().equals(MatchingStatus.RECRUITING)) {
             throw new IllegalStateException("현재 매칭이 모집중이 아닙니다.");
         }
@@ -75,7 +73,7 @@ public class MatchingService {
     @Transactional
     public void completeRecruitment(Long matchingId) {
         Matching matching = matchingRepository.findById(matchingId)
-                .orElseThrow(() -> new NotFoundDataException("매칭 정보가 존재하지 않습니다."));
+                .orElseThrow(NotFoundMatchingException::new);
         if (!matching.getStatus().equals(MatchingStatus.RECRUITING)) {
             throw new IllegalStateException("현재 매칭이 모집중이 아닙니다.");
         }
@@ -87,7 +85,7 @@ public class MatchingService {
     @Transactional
     public void proceedMatch(Long matchingId) {
         Matching matching = matchingRepository.findById(matchingId)
-                .orElseThrow(() -> new NotFoundDataException("매칭 정보가 존재하지 않습니다."));
+                .orElseThrow(NotFoundMatchingException::new);
         if (!matching.getStatus().equals(MatchingStatus.RECRUITMENT_COMPLETED)) {
             throw new IllegalStateException("현재 매칭이 모집이 완료되지 않았습니다.");
         }
@@ -99,7 +97,7 @@ public class MatchingService {
     @Transactional
     public void completeMatch(Long matchingId) {
         Matching matching = matchingRepository.findById(matchingId)
-                .orElseThrow(() -> new NotFoundDataException("매칭 정보가 존재하지 않습니다."));
+                .orElseThrow(NotFoundMatchingException::new);
         if (!isProgress(matching)) {
             throw new IllegalStateException("현재 매칭이 진행중이지 않습니다.");
         }
@@ -117,7 +115,7 @@ public class MatchingService {
     @Transactional
     public void completeReview(Long matchingId) {
         Matching matching = matchingRepository.findById(matchingId)
-                .orElseThrow(() -> new NotFoundDataException("매칭 정보가 존재하지 않습니다."));
+                .orElseThrow(NotFoundMatchingException::new);
         if (!matching.getStatus().equals(MatchingStatus.MATCHING_COMPLETED)) {
             throw new IllegalStateException("현재 매칭이 끝나지 않았습니다.");
         }
@@ -150,7 +148,7 @@ public class MatchingService {
     }
 
     private int callNumberOfMember(Long matchingId) {
-        return matchingRepository.findById(matchingId).orElseThrow(() -> new NotFoundDataException("매칭 정보가 존재하지 않습니다.")).getNumberOfMember() + 1;
+        return matchingRepository.findById(matchingId).orElseThrow(NotFoundMatchingException::new).getNumberOfMember() + 1;
     }
 
     private int callCurrentNumberOfMember(Long matchingId) {
