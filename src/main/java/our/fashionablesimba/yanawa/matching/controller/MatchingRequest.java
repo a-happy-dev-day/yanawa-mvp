@@ -1,5 +1,10 @@
 package our.fashionablesimba.yanawa.matching.controller;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import our.fashionablesimba.yanawa.matching.domain.matching.Matching;
 import our.fashionablesimba.yanawa.matching.domain.matching.PreferenceTeamGame;
 import our.fashionablesimba.yanawa.matching.domain.matching.RatingLevel;
@@ -11,6 +16,8 @@ import java.time.LocalDateTime;
 public class MatchingRequest {
     private Long userId;
     private String tennisCourtName;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm", timezone = "Asia/Seoul")
+    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
     private LocalDateTime matchingData;
     private int numberOfMember;
     private RecruitmentAge age;
@@ -21,7 +28,7 @@ public class MatchingRequest {
     private PreferenceTeamGame teamGame;
     private BigDecimal rentalCost;
 
-    protected MatchingRequest() {/*no-op*/}
+    public MatchingRequest() {/*no-op*/}
 
     public MatchingRequest(Long userId, String tennisCourtName, LocalDateTime matchingData, int numberOfMember, RecruitmentAge age,
                            RatingLevel minimumLevel, RatingLevel maximumLevel, String content, int recruitmentAnnual,
@@ -88,5 +95,7 @@ public class MatchingRequest {
         return new Matching(userId, matchingData, minimumLevel, maximumLevel,
                 age, teamGame, rentalCost, content, tennisCourtName, recruitmentAnnual, numberOfMember);
     }
+
+
 
 }
