@@ -154,7 +154,6 @@ const NextButton = styled.button`
   padding: 15px 0 14px;
   border-radius: 10px;
   color: #fff;
-  margin-top: 324px;
   transition: all 0.7s ease;
   &:disabled {
     background-color: #999;
