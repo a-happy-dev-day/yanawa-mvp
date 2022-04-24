@@ -2,22 +2,24 @@ import "./App.css";
 import { Routes, Route } from "react-router-dom";
 import { Reset } from "styled-reset";
 
-import HobbyChoice from "./pages/HobbyChoice";
-import LevelCheck from "./pages/LevelCheck";
-import LevelYear from "./pages/LevelYear.js";
-import LevelResult from "./pages/LevelResult";
-import Splash from "./pages/Splash";
+import HobbyChoicePage from "./pages/HobbyChoicePage.js";
+import LevelCheckPage from "./pages/LevelCheckPage.js";
+import LevelYearPage from "./pages/LevelYearPage.js";
+import LevelResultPage from "./pages/LevelResultPage.js";
+import SplashPage from "./pages/SplashPage.js";
+import LoginPage from "./pages/LoginPage";
 
 function App() {
   return (
     <div>
       <Reset />
       <Routes>
-        <Route path='/' element={<Splash />} />
-        <Route path='/hobbychoice' element={<HobbyChoice />} />
-        <Route path='/levelyear' element={<LevelYear />} />
-        <Route path='/levelcheck' element={<LevelCheck />} />
-        <Route path='/levelresult' element={<LevelResult />} />
+        <Route path='/' element={<SplashPage />} />
+        <Route path='/login' element={<LoginPage />} />
+        <Route path='/hobbychoice' element={<HobbyChoicePage />} />
+        <Route path='/levelyear' element={<LevelYearPage />} />
+        <Route path='/levelcheck' element={<LevelCheckPage />} />
+        <Route path='/levelresult' element={<LevelResultPage />} />
       </Routes>
     </div>
   );

@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { FaChevronLeft } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 
-const HobbyChoice = () => {
+const HobbyChoicePage = () => {
   const navigate = useNavigate();
   const [activeButton, setActiveButton] = useState(1);
 
@@ -62,7 +62,7 @@ const HobbyChoice = () => {
   );
 };
 
-export default HobbyChoice;
+export default HobbyChoicePage;
 
 const Wrapper = styled.div`
   position: relative;

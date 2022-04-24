@@ -1,19 +1,34 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import styled from "styled-components";
 import { FaChevronLeft } from "react-icons/fa";
-// import { useNavigate } from "react-router-dom";
+import { createSearchParams, useNavigate } from "react-router-dom";
 import { LevelCheckData } from "../assets/data/levelcheckdata";
 
-const LevelCheck = () => {
+const LevelCheckPage = () => {
   const [levelCheckNum, setLevelCheckNum] = useState(0);
   const [activeButton, setActiveButton] = useState(1);
+  const [levelScore, setLevelScore] = useState(0);
+  const levelScoreTotal = useRef(0);
+  const navigate = useNavigate();
 
-  const ToNextCheckPage = () => {
-    setLevelCheckNum(levelCheckNum + 1);
+  const changeHandler = (checked, grade) => {
+    setActiveButton(!checked);
+    setLevelScore(grade);
   };
 
-  const changeHandler = (checked) => {
-    setActiveButton(!checked);
+  const clickNextButton = () => {
+    levelScoreTotal.current += Number(levelScore);
+    console.log("levelScoreTotal", levelScoreTotal);
+    if (LevelCheckData.length !== levelCheckNum + 1) {
+      setLevelCheckNum(levelCheckNum + 1);
+    } else {
+      navigate({
+        pathname: "/levelresult",
+        search: `?${createSearchParams({
+          levelScore: levelScoreTotal.current / 4,
+        })}`,
+      });
+    }
   };
 
   return (
@@ -33,24 +48,28 @@ const LevelCheck = () => {
                 id={index}
                 type='radio'
                 name='check'
+                data-grade={data.grade}
                 onChange={(e) => {
-                  changeHandler(e.currentTarget.checked);
+                  changeHandler(
+                    e.currentTarget.checked,
+                    e.target.dataset.grade
+                  );
                 }}
               ></Input>
-              <Label htmlFor={index}>{data}</Label>
+              <Label htmlFor={index}>{data.desc}</Label>
             </div>
           ))}
         </form>
       </CheckListForm>
 
-      <NextButton disabled={activeButton} onClick={ToNextCheckPage}>
+      <NextButton disabled={activeButton} onClick={clickNextButton}>
         다음으로 ({levelCheckNum + 2}/5)
       </NextButton>
     </Wrapper>
   );
 };
 
-export default LevelCheck;
+export default LevelCheckPage;
 
 const Wrapper = styled.div`
   position: relative;

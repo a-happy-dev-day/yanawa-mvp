@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import logo from "../assets/image/logo1.png";
 
-const Splash = () => {
+const SplashPage = () => {
   return (
     <Wrapper>
       <img src={logo} alt='야나와' />
@@ -10,7 +10,7 @@ const Splash = () => {
   );
 };
 
-export default Splash;
+export default SplashPage;
 
 const Wrapper = styled.div`
   font-family: "Noto Sans KR", sans-serif;

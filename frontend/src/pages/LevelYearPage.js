@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { FaChevronLeft } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 
-const LevelYear = () => {
+const LevelYearPage = () => {
   const navigate = useNavigate();
   const [activeButton, setActiveButton] = useState(1);
 
@@ -43,7 +43,7 @@ const LevelYear = () => {
   );
 };
 
-export default LevelYear;
+export default LevelYearPage;
 
 const Wrapper = styled.div`
   position: relative;

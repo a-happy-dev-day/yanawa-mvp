@@ -2,9 +2,10 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { FaChevronLeft } from "react-icons/fa";
 import level1 from "../assets/image/level1.png";
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
-const LevelResult = () => {
+const LevelResultPage = () => {
+  const navigate = useNavigate();
   return (
     <div>
       {" "}
@@ -20,13 +21,19 @@ const LevelResult = () => {
           <LevelImg src={level1} alt='level'></LevelImg>
           <Title>매칭을 통해 꾸준히 당신의 레벨을 올려보세요</Title>
         </Main>
-        <NextButton>시작하기</NextButton>
+        <NextButton
+          onClick={() => {
+            navigate("/home");
+          }}
+        >
+          시작하기
+        </NextButton>
       </Wrapper>
     </div>
   );
 };
 
-export default LevelResult;
+export default LevelResultPage;
 
 const Wrapper = styled.div`
   position: relative;
