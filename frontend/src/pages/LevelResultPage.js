@@ -2,10 +2,14 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { FaChevronLeft } from "react-icons/fa";
 import level1 from "../assets/image/level1.png";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 const LevelResultPage = () => {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const level = searchParams.get("level");
+  console.log(level);
+
   return (
     <div>
       {" "}

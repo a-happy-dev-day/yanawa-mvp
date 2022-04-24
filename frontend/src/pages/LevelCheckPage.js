@@ -18,14 +18,29 @@ const LevelCheckPage = () => {
 
   const clickNextButton = () => {
     levelScoreTotal.current += Number(levelScore);
-    console.log("levelScoreTotal", levelScoreTotal);
+    const everage = levelScoreTotal.current / 4;
+    let level = 0;
+    if (everage < 2) {
+      level = 1;
+    } else if (everage < 3) {
+      level = 2;
+    } else if (everage < 4) {
+      level = 3;
+    } else if (everage < 5) {
+      level = 4;
+    } else if (everage < 6) {
+      level = 5;
+    } else if (everage >= 6) {
+      level = 6;
+    }
+
     if (LevelCheckData.length !== levelCheckNum + 1) {
       setLevelCheckNum(levelCheckNum + 1);
     } else {
       navigate({
         pathname: "/levelresult",
         search: `?${createSearchParams({
-          levelScore: levelScoreTotal.current / 4,
+          level: level,
         })}`,
       });
     }
