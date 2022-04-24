@@ -1,12 +1,17 @@
 package our.fashionablesimba.yanawa.matching.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import our.fashionablesimba.yanawa.matching.domain.matching.Matching;
 import our.fashionablesimba.yanawa.matching.domain.usermatching.UserMatching;
+import our.fashionablesimba.yanawa.matching.dto.MatchingDto;
 import our.fashionablesimba.yanawa.matching.service.MatchingService;
 
 import java.util.List;
@@ -16,6 +21,7 @@ import java.util.stream.Collectors;
 @RequestMapping("api/matching")
 public class MatchingController {
 
+    Logger log = LoggerFactory.getLogger(this.getClass());
     private final MatchingService matchingService;
 
     public MatchingController(MatchingService matchingService) {
@@ -23,25 +29,25 @@ public class MatchingController {
     }
 
     @GetMapping
-    public ResponseEntity<List<MatchingResponse>> findAll() {
+    public ResponseEntity<List<MatchingDto>> findAll() {
         return ResponseEntity.ok(
                 matchingService.findAll().stream()
-                        .map(matching -> new MatchingResponse(matching))
+                        .map(matching -> new MatchingDto(matching))
                         .collect(Collectors.toList())
         );
     }
 
-    //매칭 등록
     @PostMapping
-    public ResponseEntity<MatchingResponse> recruitPartner(MatchingRequest matchingRequest) {
+    public ResponseEntity<MatchingDto> recruitPartner(@RequestBody MatchingDto matchingRequest) {
         Matching matching = matchingService.recruit(matchingRequest.toMatching());
-        return ResponseEntity.ok(new MatchingResponse(matching));
+        MatchingDto result = new MatchingDto(matching);
+        log.info("{}", result.toString());
+        return ResponseEntity.ok(new MatchingDto(matching));
     }
 
-    //매칭 신청
     @PostMapping("apply")
-    public ResponseEntity<UserMatching> apply(Long userId, Long matchingId) {
+    public ResponseEntity<HttpStatus> apply(Long userId, Long matchingId) {
         UserMatching userMatching = matchingService.apply(userId, matchingId);
-        return ResponseEntity.ok(userMatching);
+        return ResponseEntity.ok(HttpStatus.CREATED);
     }
 }

@@ -8,9 +8,7 @@ import our.fashionablesimba.yanawa.matching.domain.matching.MatchingRepository;
 import our.fashionablesimba.yanawa.matching.domain.matching.MatchingStatus;
 import our.fashionablesimba.yanawa.matching.domain.matchingreview.MatchingReview;
 import our.fashionablesimba.yanawa.matching.domain.matchingreview.MatchingReviewRepository;
-import our.fashionablesimba.yanawa.matching.domain.matchingreview.NotificationReviewClient;
-import our.fashionablesimba.yanawa.matching.domain.usermatching.UserMatchingRepository;
-import our.fashionablesimba.yanawa.matching.error.NotFoundDataException;
+import our.fashionablesimba.yanawa.matching.exception.NotFoundMatchingException;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -33,7 +31,7 @@ public class MatchingReviewService {
 
         Matching matching = matchingRepository
                 .findById(matchingReview.getMatchingId())
-                .orElseThrow(() -> new NotFoundDataException("메칭이 존재하지 않습니다."));
+                .orElseThrow(NotFoundMatchingException::new);
 
         if (matching.getStatus() != MatchingStatus.MATCHING_COMPLETED) {
             throw new IllegalStateException("매칭이 완료되지 않았습니다.");
