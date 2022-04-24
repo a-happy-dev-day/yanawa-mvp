@@ -1,14 +1,13 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import { FaChevronLeft } from "react-icons/fa";
-import level1 from "../assets/image/level1.png";
 import { useNavigate, useSearchParams } from "react-router-dom";
+import { resultData } from "../assets/data/resultdata";
 
 const LevelResultPage = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const level = searchParams.get("level");
-  console.log(level);
 
   return (
     <div>
@@ -20,9 +19,10 @@ const LevelResultPage = () => {
         <Main>
           <MainTitle>
             테린이 님의
-            <br /> 테니스 레벨은 1.0입니다
+            <br />
+            {resultData[level - 1].level}
           </MainTitle>
-          <LevelImg src={level1} alt='level'></LevelImg>
+          <LevelImg src={resultData[level - 1].image} alt='level'></LevelImg>
           <Title>매칭을 통해 꾸준히 당신의 레벨을 올려보세요</Title>
         </Main>
         <NextButton
@@ -32,6 +32,7 @@ const LevelResultPage = () => {
         >
           시작하기
         </NextButton>
+        <BgStyle backgroundColor={resultData[level - 1].color} />
       </Wrapper>
     </div>
   );
@@ -48,6 +49,8 @@ const Wrapper = styled.div`
   height: 812px;
   margin-top: 40px;
   padding: 0 20px 0;
+  overflow: hidden;
+  z-index: -20;
 `;
 
 const Header = styled.header`
@@ -104,4 +107,16 @@ const NextButton = styled.button`
   &:disabled {
     background-color: #999;
   }
+`;
+
+const BgStyle = styled.div`
+  width: 488px;
+  height: 860px;
+  border-bottom-left-radius: 311px;
+  border-bottom-right-radius: 311px;
+  position: absolute;
+  top: -471px;
+  left: -56.5px;
+  background-color: ${(props) => props.backgroundColor};
+  z-index: -10;
 `;
