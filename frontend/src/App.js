@@ -6,12 +6,14 @@ import HobbyChoice from "./pages/HobbyChoice";
 import LevelCheck from "./pages/LevelCheck";
 import LevelYear from "./pages/LevelYear.js";
 import LevelResult from "./pages/LevelResult";
+import Splash from "./pages/Splash";
 
 function App() {
   return (
     <div>
       <Reset />
       <Routes>
+        <Route path='/' element={<Splash />} />
         <Route path='/hobbychoice' element={<HobbyChoice />} />
         <Route path='/levelyear' element={<LevelYear />} />
         <Route path='/levelcheck' element={<LevelCheck />} />
