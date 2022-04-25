@@ -1,5 +1,7 @@
 package our.fashionablesimba.yanawa.matching.controller;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,6 +16,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("api/matching/review")
+@Api(tags = "MATCHING REVIEW APIs")
 public class MatchingReviewController {
 
     private final MatchingReviewService matchingReviewService;
@@ -23,6 +26,7 @@ public class MatchingReviewController {
     }
 
     @PostMapping
+    @ApiOperation(value = "리뷰 작성")
     public ResponseEntity<ReviewResponse> writeReview(ReviewRequest request) {
         return ResponseEntity.ok(
                 new ReviewResponse(matchingReviewService.review(request.toMatching()))
@@ -30,6 +34,7 @@ public class MatchingReviewController {
     }
 
     @GetMapping("{userId}")
+    @ApiOperation(value = "자신의 리뷰 리스트 가져오기")
     public ResponseEntity<List<ReviewResponse>> findMyReview(Long userId) {
         return ResponseEntity.ok(
                 matchingReviewService.findMyReview(userId).stream()
