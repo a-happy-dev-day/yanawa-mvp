@@ -3,6 +3,7 @@ package our.fashionablesimba.yanawa.matching.controller;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import our.fashionablesimba.yanawa.matching.dto.ReviewRequest;
 import our.fashionablesimba.yanawa.matching.dto.ReviewResponse;
@@ -11,7 +12,8 @@ import our.fashionablesimba.yanawa.matching.service.MatchingReviewService;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@RestController("api/matching/review")
+@RestController
+@RequestMapping("api/matching/review")
 public class MatchingReviewController {
 
     private final MatchingReviewService matchingReviewService;
