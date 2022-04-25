@@ -27,20 +27,6 @@ import static springfox.documentation.builders.RequestHandlerSelectors.withMetho
 @Configuration
 @EnableSwagger2
 public class Swagger2Configure extends WebMvcConfigurationSupport {
-//    @Bean
-//    public Docket restApi() {
-//        return new Docket(DocumentationType.SWAGGER_2)
-//                .apiInfo(apiInfo())
-//                .ignoredParameterTypes(AuthenticationPrincipal.class, Pageable.class)
-//                .securitySchemes(singletonList(apiKey()))
-//                .securityContexts(singletonList(securityContext()))
-//                .produces(singleton("application/json"))
-//                .consumes(singleton("application/json"))
-//                .useDefaultResponseMessages(false)
-//                .select()
-//                .apis(withMethodAnnotation(ApiOperation.class))
-//                .build();
-//    }
 
     @Bean
     public Docket api() {
