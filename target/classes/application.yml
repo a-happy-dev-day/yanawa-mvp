@@ -1,36 +1,30 @@
 spring:
-  profiles:
-    active: user
-#   application:
-#     name: matching_service
-#   messages:
-#     basename: i18n/messages
-#     encoding: UTF-8
-#     cache-duration: PT1H
-#   h2:
-#     console:
-#       enabled: true
-#       path: /h2-console
-#   datasource:
-#     driver-class-name: org.h2.Driver
-#     url: "jdbc:h2:mem:yanawa;MODE=MYSQL;DB_CLOSE_DELAY=-1"
-#     username: sa
-#     password:
-#     hikari:
-#       minimum-idle: 1
-#       maximum-pool-size: 5
-#       pool-name: H2_DB
-# #  sql:
-# #    init:
-# #      platform: h2
-# #      schema-locations: classpath:schema-h2.sql
-# #      data-locations: classpath:data-h2.sql
-# server:
-#   port: 14122
+   application:
+      name: matching_service
+   messages:
+     basename: i18n/messages
+     encoding: UTF-8
+     cache-duration: PT1H
+   h2:
+     console:
+       enabled: true
+       path: /h2-console
+   datasource:
+     driver-class-name: org.h2.Driver
+     url: "jdbc:h2:mem:yanawa;MODE=MYSQL;DB_CLOSE_DELAY=-1"
+     username: sa
+     password:
+     hikari:
+       minimum-idle: 1
+       maximum-pool-size: 5
+       pool-name: H2_DB
 
-# logging:
-#   level:
-#     our:
-#       fashionablesimba:
-#         yanawa: debug
+server:
+  port: 14122
+
+logging:
+ level:
+   our:
+     fashionablesimba:
+       yanawa: debug
 

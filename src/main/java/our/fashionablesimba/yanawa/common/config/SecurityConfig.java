@@ -1,4 +1,4 @@
-package our.fashionablesimba.yanawa.user.config;
+package our.fashionablesimba.yanawa.common.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
