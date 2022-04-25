@@ -1,14 +1,13 @@
 package our.fashionablesimba.yanawa.matching.controller;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Repository;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import our.fashionablesimba.yanawa.matching.domain.matching.Matching;
 import our.fashionablesimba.yanawa.matching.domain.usermatching.UserMatching;
 import our.fashionablesimba.yanawa.matching.dto.MatchingDto;
@@ -17,8 +16,9 @@ import our.fashionablesimba.yanawa.matching.service.MatchingService;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Repository
+@RestController
 @RequestMapping("api/matching")
+@Api(tags = "MATCHING APIs")
 public class MatchingController {
 
     Logger log = LoggerFactory.getLogger(this.getClass());
@@ -29,6 +29,7 @@ public class MatchingController {
     }
 
     @GetMapping
+    @ApiOperation(value = "매칭 전체 조회")
     public ResponseEntity<List<MatchingDto>> findAll() {
         return ResponseEntity.ok(
                 matchingService.findAll().stream()
@@ -38,6 +39,7 @@ public class MatchingController {
     }
 
     @PostMapping
+    @ApiOperation(value = "매칭 생성")
     public ResponseEntity<MatchingDto> recruitPartner(@RequestBody MatchingDto matchingRequest) {
         Matching matching = matchingService.recruit(matchingRequest.toMatching());
         MatchingDto result = new MatchingDto(matching);
@@ -46,6 +48,7 @@ public class MatchingController {
     }
 
     @PostMapping("apply")
+//    @ApiOperation(value = "매칭 지원")
     public ResponseEntity<HttpStatus> apply(Long userId, Long matchingId) {
         UserMatching userMatching = matchingService.apply(userId, matchingId);
         return ResponseEntity.ok(HttpStatus.CREATED);
