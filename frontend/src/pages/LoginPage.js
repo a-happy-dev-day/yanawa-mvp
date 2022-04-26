@@ -6,6 +6,7 @@ import logo from "../assets/image/logo_blue.png";
 const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [errMessage, setErrMessage] = useState("");
   const navigate = useNavigate();
 
   const onChangeEmailHandler = (Event) => {
@@ -21,7 +22,6 @@ const LoginPage = () => {
 
   const onClickHandler = async (Event) => {
     // Event.prevenDefalult();
-    const url = "http://3.34.47.146:14122";
     try {
       const res = await fetch("/api/user/login/", {
         method: "POST",
@@ -29,13 +29,12 @@ const LoginPage = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          user: {
-            email: email,
-            password: password,
-          },
+          email: email,
+          password: password,
         }),
       });
       const resJson = await res.json();
+      setErrMessage(resJson.message);
       console.log(resJson);
     } catch (err) {}
   };
@@ -59,6 +58,7 @@ const LoginPage = () => {
           type='email'
           required
         />
+        <ErrText>{errMessage}</ErrText>
         <Input
           value={password}
           onChange={onChangePasswordHandler}
@@ -109,6 +109,7 @@ const Input = styled.input`
   border-bottom: 1px solid #ced4da;
   outline: none;
   transition: all 0.8s ease-in-out;
+  margin-bottom: 3px;
   &::placeholder {
     color: rgba(219, 219, 219, 1);
   }
@@ -129,6 +130,11 @@ const SignLink = styled.button`
   text-decoration: none;
   color: #000;
   background-color: transparent;
+`;
+
+const ErrText = styled.p`
+  color: red;
+  margin-bottom: 6px;
 `;
 
 const NextButton = styled.button`

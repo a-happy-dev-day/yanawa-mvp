@@ -11,23 +11,28 @@ const LevelResultPage = () => {
 
   console.log(location.state);
 
-  const onClickHandler = () => {
-    fetch("api/user", {
-      method: "POST",
-      headers: {
-        "Content-type": "application/json",
-      },
-      body: JSON.stringify({
-        email: location.state.email,
-        password: location.state.password,
-        sex: location.state.sex,
-        birth: location.state.birth,
-        nickname: location.state.nickname,
-        level: level,
-      }),
-    })
-      .then((response) => response.json())
-      .then((data) => console.log(data));
+  const onClickHandler = async () => {
+    try {
+      const res = await fetch("/api/user/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: location.state.email,
+          password: location.state.password,
+          sex: location.state.sex,
+          birth: location.state.birth,
+          nickname: location.state.nickname,
+          year: location.state.year,
+          level: level,
+        }),
+      });
+      const resJson = await res.json();
+
+      console.log(resJson);
+      navigate("/login");
+    } catch (err) {}
   };
 
   return (

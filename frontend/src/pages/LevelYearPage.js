@@ -7,18 +7,29 @@ const LevelYearPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [activeButton, setActiveButton] = useState(1);
+  const [year, setYear] = useState();
 
-  console.log(location);
   const changeHandler = (value) => {
+    setYear(value);
     if (value.length > 0) {
       setActiveButton(0);
     } else {
       setActiveButton(1);
     }
   };
+  console.log(typeof year);
 
   const onClickHandler = () => {
-    navigate("/levelcheck", { state: location.state });
+    navigate("/levelcheck", {
+      state: {
+        email: location.state.email,
+        password: location.state.password,
+        sex: location.state.sex,
+        birth: location.state.birth,
+        nickname: location.state.nickname,
+        year: parseInt(year),
+      },
+    });
   };
 
   return (
@@ -32,6 +43,7 @@ const LevelYearPage = () => {
           onChange={(e) => {
             changeHandler(e.currentTarget.value);
           }}
+          value={year}
           type='number'
           min='0'
           id='year'

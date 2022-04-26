@@ -45,6 +45,7 @@ const LevelCheckPage = () => {
           sex: location.state.sex,
           birth: location.state.birth,
           nickname: location.state.nickname,
+          year: location.state.year,
           level: level,
         },
       });
