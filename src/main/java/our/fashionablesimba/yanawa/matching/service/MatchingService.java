@@ -31,6 +31,12 @@ public class MatchingService {
         this.matchingReviewClient = matchingReviewClient;
     }
 
+
+    @Transactional(readOnly = true)
+    public Matching findMatching(Long matchingId) {
+        return matchingRepository.findById(matchingId).orElseThrow(NotFoundMatchingException::new);
+    }
+
     @Transactional
     public Matching recruit(Matching request) {
         log.debug("[{}][{}] recruit Matching", this.getClass(), this.getClass().getSimpleName());

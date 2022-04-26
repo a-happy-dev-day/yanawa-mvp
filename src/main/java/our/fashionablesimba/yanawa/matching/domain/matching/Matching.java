@@ -28,13 +28,14 @@ public class Matching {
     private int recruitmentAnnual;
     private String content;
 
+    private PreferenceSex sex;
     protected Matching() {/*no-op*/}
 
     public Matching(Long matchingId, Long userId,
                     LocalDateTime creationDate, LocalDateTime matchingDate,
                     String tennisCourtName, int numberOfMember, RatingLevel minimumLevel, RatingLevel maximumLevel,
                     RecruitmentAge recruitmentAge, PreferenceTeamGame preferenceTeamGame,
-                    BigDecimal rentalCost, MatchingStatus status, int recruitmentAnnual, String content) {
+                    BigDecimal rentalCost, MatchingStatus status, int recruitmentAnnual, String content, PreferenceSex sex) {
 
         if (rentalCost == null || rentalCost.compareTo(BigDecimal.ONE) < 0) {
             throw new IllegalArgumentException("코트 비용이 음수가 될 수 없습니다.");
@@ -60,7 +61,7 @@ public class Matching {
             throw new IllegalArgumentException("코트장 이름이 존재해야 합니다.");
         }
 
-
+        this.sex = sex;
         this.tennisCourtName = tennisCourtName;
         this.matchingId = matchingId;
         this.userId = userId;
@@ -81,10 +82,10 @@ public class Matching {
     public Matching(Long userId, LocalDateTime matchingDate,
                     RatingLevel minimumLevel, RatingLevel maximumLevel,
                     RecruitmentAge recruitmentAge, PreferenceTeamGame preferenceTeamGame,
-                    BigDecimal rentalCost, String matchingContent, String tennisCourt, int recruitmentAnnual, int numberOfMember) {
+                    BigDecimal rentalCost, String matchingContent, String tennisCourt, int recruitmentAnnual, int numberOfMember, PreferenceSex sex) {
         this(null, userId, LocalDateTime.now(),
                 matchingDate, tennisCourt, numberOfMember, minimumLevel, maximumLevel, recruitmentAge,
-                preferenceTeamGame, rentalCost, MatchingStatus.RECRUITING, recruitmentAnnual, matchingContent);
+                preferenceTeamGame, rentalCost, MatchingStatus.RECRUITING, recruitmentAnnual, matchingContent, sex);
     }
 
     public int getNumberOfMember() {
@@ -153,5 +154,9 @@ public class Matching {
 
     public void updateStatus(MatchingStatus status) {
         this.status = status;
+    }
+
+    public PreferenceSex getSex() {
+        return sex;
     }
 }

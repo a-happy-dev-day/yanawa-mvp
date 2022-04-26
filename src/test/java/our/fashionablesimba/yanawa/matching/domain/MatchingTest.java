@@ -22,7 +22,7 @@ class MatchingTest {
         assertDoesNotThrow(
                 () -> new Matching(0L, LocalDateTime.now().plusDays(1L), RatingLevel.A, RatingLevel.B,
                         RecruitmentAge.TWENTIES, PreferenceTeamGame.MATCH, 만원, null, TENNIS_COURT,
-                        1, 2)
+                        1, 2, PreferenceSex.ALL)
         );
     }
 
@@ -37,14 +37,14 @@ class MatchingTest {
     void test2() {
         assertThatThrownBy(() -> new Matching(0L, LocalDateTime.now().plusDays(1L), RatingLevel.A, RatingLevel.B,
                 RecruitmentAge.TWENTIES, PreferenceTeamGame.MATCH, 음수인가격, null, TENNIS_COURT,
-                1, 2)).isInstanceOf(IllegalArgumentException.class);
+                1, 2, PreferenceSex.ALL)).isInstanceOf(IllegalArgumentException.class);
     }
 
 
     @Test
     @DisplayName("매칭 일자는 현재 이후의 시간이 아니면 예외 발생")
     void test4() {
-        assertThatThrownBy(() -> new Matching(0L, LocalDateTime.now().minusDays(1L), RatingLevel.A, RatingLevel.B, RecruitmentAge.TWENTIES, PreferenceTeamGame.MATCH, 만원, null, TENNIS_COURT, 1, 2)).isInstanceOf(IllegalStateException.class);
+        assertThatThrownBy(() -> new Matching(0L, LocalDateTime.now().minusDays(1L), RatingLevel.A, RatingLevel.B, RecruitmentAge.TWENTIES, PreferenceTeamGame.MATCH, 만원, null, TENNIS_COURT, 1, 2, PreferenceSex.ALL)).isInstanceOf(IllegalStateException.class);
     }
 
     @Test
@@ -52,7 +52,7 @@ class MatchingTest {
     void test5() {
         assertThatThrownBy(
                 () -> new Matching(0L, LocalDateTime.now(), RatingLevel.B, RatingLevel.A, RecruitmentAge.TWENTIES,
-                        PreferenceTeamGame.MATCH, 만원, null, "tennisCourt", 1, 2)
+                        PreferenceTeamGame.MATCH, 만원, null, "tennisCourt", 1, 2, PreferenceSex.ALL)
         ).isInstanceOf(IllegalStateException.class);
     }
 
@@ -62,7 +62,7 @@ class MatchingTest {
         assertThatThrownBy(
                 () -> new Matching(0L, LocalDateTime.now().plusDays(2L), RatingLevel.A, RatingLevel.A, RecruitmentAge.TWENTIES,
                         PreferenceTeamGame.MATCH, 만원, null,
-                        TENNIS_COURT, 1, 3)
+                        TENNIS_COURT, 1, 3, PreferenceSex.ALL)
         ).isInstanceOf(IllegalArgumentException.class);
     }
 

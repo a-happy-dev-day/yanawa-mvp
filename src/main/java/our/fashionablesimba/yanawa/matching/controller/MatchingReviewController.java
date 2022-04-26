@@ -3,12 +3,8 @@ package our.fashionablesimba.yanawa.matching.controller;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import our.fashionablesimba.yanawa.matching.dto.ReviewRequest;
-import our.fashionablesimba.yanawa.matching.dto.ReviewResponse;
+import org.springframework.web.bind.annotation.*;
+import our.fashionablesimba.yanawa.matching.dto.ReviewDto;
 import our.fashionablesimba.yanawa.matching.service.MatchingReviewService;
 
 import java.util.List;
@@ -27,18 +23,27 @@ public class MatchingReviewController {
 
     @PostMapping
     @ApiOperation(value = "리뷰 작성")
-    public ResponseEntity<ReviewResponse> writeReview(ReviewRequest request) {
+    public ResponseEntity<ReviewDto> writeReview(ReviewDto request) {
         return ResponseEntity.ok(
-                new ReviewResponse(matchingReviewService.review(request.toMatching()))
+                new ReviewDto(matchingReviewService.review(request.toMatching()))
         );
     }
 
+    @PostMapping("{reviewId}")
+    @ApiOperation(value = "리뷰 상세페이지")
+    public ResponseEntity<ReviewDto> findReview(@PathVariable Long request) {
+        return ResponseEntity.ok(
+                new ReviewDto(matchingReviewService.findReview(request))
+        );
+    }
+
+
     @GetMapping("{userId}")
     @ApiOperation(value = "자신의 리뷰 리스트 가져오기")
-    public ResponseEntity<List<ReviewResponse>> findMyReview(Long userId) {
+    public ResponseEntity<List<ReviewDto>> findMyReview(Long userId) {
         return ResponseEntity.ok(
                 matchingReviewService.findMyReview(userId).stream()
-                        .map(ReviewResponse::new)
+                        .map(ReviewDto::new)
                         .collect(Collectors.toList())
         );
     }

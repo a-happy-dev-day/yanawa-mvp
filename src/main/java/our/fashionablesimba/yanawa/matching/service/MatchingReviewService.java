@@ -9,6 +9,7 @@ import our.fashionablesimba.yanawa.matching.domain.matching.MatchingStatus;
 import our.fashionablesimba.yanawa.matching.domain.matchingreview.MatchingReview;
 import our.fashionablesimba.yanawa.matching.domain.matchingreview.MatchingReviewRepository;
 import our.fashionablesimba.yanawa.matching.exception.NotFoundMatchingException;
+import our.fashionablesimba.yanawa.matching.exception.NotFoundMatchingReviewException;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -19,8 +20,6 @@ public class MatchingReviewService {
 
     private final MatchingRepository matchingRepository;
     private final MatchingReviewRepository matchingReviewRepository;
-
-
 
     public MatchingReviewService(MatchingRepository matchingRepository, MatchingReviewRepository matchingReviewRepository) {
         this.matchingRepository = matchingRepository;
@@ -49,5 +48,9 @@ public class MatchingReviewService {
 
     public List<MatchingReview> findMyReview(Long userId) {
         return matchingReviewRepository.findByUserId(userId);
+    }
+
+    public MatchingReview findReview(Long reviewId) {
+        return matchingReviewRepository.findById(reviewId).orElseThrow(NotFoundMatchingReviewException::new);
     }
 }
