@@ -3,10 +3,7 @@ package our.fashionablesimba.yanawa.matching.controller;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import our.fashionablesimba.yanawa.matching.dto.ReviewDto;
 import our.fashionablesimba.yanawa.matching.service.MatchingReviewService;
 
@@ -31,6 +28,15 @@ public class MatchingReviewController {
                 new ReviewDto(matchingReviewService.review(request.toMatching()))
         );
     }
+
+    @PostMapping("{reviewId}")
+    @ApiOperation(value = "리뷰 상세페이지")
+    public ResponseEntity<ReviewDto> findReview(@PathVariable Long request) {
+        return ResponseEntity.ok(
+                new ReviewDto(matchingReviewService.findReview(request))
+        );
+    }
+
 
     @GetMapping("{userId}")
     @ApiOperation(value = "자신의 리뷰 리스트 가져오기")
