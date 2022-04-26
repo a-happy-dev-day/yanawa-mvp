@@ -11,6 +11,9 @@ const LoginPage = () => {
 
   const onChangeEmailHandler = (Event) => {
     setEmail(Event.currentTarget.value);
+    if (errMessage) {
+      setErrMessage("");
+    }
   };
   const onChangePasswordHandler = (Event) => {
     setPassword(Event.currentTarget.value);

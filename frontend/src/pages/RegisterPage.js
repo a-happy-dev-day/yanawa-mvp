@@ -1,29 +1,74 @@
 import React, { useState } from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { FaChevronLeft } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 
 const RegisterPage = () => {
   const navigate = useNavigate();
-  const [activeButton, setActiveButton] = useState(0);
+  const [activeButton, setActiveButton] = useState(1);
+  const [registerStep, setRegisterStep] = useState(0);
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [registerStep, setRegisterStep] = useState(0);
+  const [passwordConfirm, setPasswordConfirm] = useState("");
   const [nickname, setNickname] = useState("");
   const [sex, setSex] = useState("");
   const [birth, setBirth] = useState("");
 
+  const [emailMessage, setEmailMessage] = useState("");
+  const [passwordMessage, setPasswordMessage] = useState("");
+  const [passwordConfirmMessage, setPasswordConfirmMessage] = useState("");
+
+  const [isEmail, setIsEmail] = useState(false);
+  const [isPassword, setIsPassword] = useState(false);
+  const [isPasswordConfirm, setIsPasswordConfirm] = useState(false);
+
   const onChangeEmailHandler = (Event) => {
-    setEmail(Event.currentTarget.value);
+    const emailCurrent = Event.target.value;
+    setEmail(emailCurrent);
+    const emailRegex =
+      /([\w-.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
+    if (email.length < 2) {
+      setEmailMessage("");
+    } else if (!emailRegex.test(emailCurrent)) {
+      setEmailMessage("이메일 형식이 틀렸어요! 다시 확인해주세요");
+      setIsEmail(false);
+    } else {
+      setEmailMessage("올바른 이메일 형식이에요");
+      setIsEmail(true);
+    }
   };
 
   const onChangePasswordHandler = (Event) => {
-    setPassword(Event.currentTarget.value);
+    const passwordRegex =
+      /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/;
+    const passwordCurrent = Event.target.value;
+    setPassword(passwordCurrent);
+    if (password.length < 2) {
+      setPasswordMessage("");
+    } else if (!passwordRegex.test(passwordCurrent)) {
+      setPasswordMessage(
+        "숫자+영문자+특수문자 조합으로 8자리 이상 입력해주세요!"
+      );
+      setIsPassword(false);
+    } else {
+      setPasswordMessage("안전한 비밀번호입니다");
+      setIsPassword(true);
+    }
   };
 
   const onChangeConfirmPassworHandler = (Event) => {
-    setConfirmPassword(Event.currentTarget.value);
+    const passwordConfirmCurrent = Event.target.value;
+    setPasswordConfirm(passwordConfirmCurrent);
+    if (passwordConfirm.length < 2) {
+      setPasswordConfirmMessage("");
+    } else if (password === passwordConfirmCurrent) {
+      setPasswordConfirmMessage("비밀번호가 동일합니다.");
+      setIsPasswordConfirm(true);
+    } else {
+      setPasswordConfirmMessage("비밀번호가 틀립니다. 다시 확인해주세요");
+      setIsPasswordConfirm(false);
+    }
   };
 
   const onChangeNicknameHandler = (Event) => {
@@ -71,6 +116,7 @@ const RegisterPage = () => {
             onChange={onChangeEmailHandler}
             required
           ></Input>
+          <ErrMessage inverted={isEmail}>{emailMessage}</ErrMessage>
           <Label htmlFor='password'>비밀번호</Label>
           <Input
             id='password'
@@ -80,19 +126,23 @@ const RegisterPage = () => {
             onChange={onChangePasswordHandler}
             required
           ></Input>
+          <ErrMessage inverted={isPassword}>{passwordMessage}</ErrMessage>
           <Label htmlFor='confirmPassword'>비빌번호 확인</Label>
           <Input
             id='confirmPassword'
             type='password'
             placeholder='비밀번호 확인'
-            value={confirmPassword}
+            value={passwordConfirm}
             onChange={onChangeConfirmPassworHandler}
             required
           ></Input>
+          <ErrMessage inverted={isPasswordConfirm}>
+            {passwordConfirmMessage}
+          </ErrMessage>
         </form>
         <NextButton
           form='submit'
-          disabled={activeButton}
+          disabled={!(isEmail && isPassword && isPasswordConfirm)}
           onClick={onClickHandler}
         >
           다음으로(1/4)
@@ -202,6 +252,17 @@ const Title = styled.div`
   margin-bottom: 6px;
 `;
 
+const ErrMessage = styled.p`
+  color: red;
+  font-size: 12px;
+  margin-bottom: 6px;
+  ${(props) =>
+    props.inverted &&
+    css`
+      color: rgba(0, 39, 253, 1);
+    `}
+`;
+
 const Label = styled.label`
   color: #707070;
   margin-bottom: 6px;
@@ -212,7 +273,13 @@ const Input = styled.input`
   border: none;
   font-size: 24px;
   font-family: inherit;
-  margin-bottom: 12px;
+  margin-bottom: 6px;
+  outline: none;
+  border-bottom: 1px solid #ced4da;
+  transition: all 0.8s ease-in-out;
+  &:focus {
+    border-bottom: 1px solid rgba(0, 39, 253, 1);
+  }
   &::placeholder {
     color: rgba(219, 219, 219, 1);
   }
