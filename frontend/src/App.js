@@ -1,39 +1,38 @@
-import logo from './logo.svg';
+// import logo from './logo.svg';
 import './App.css';
-import React, {useState, useEffect} from 'react';
+import { Container } from 'react-bootstrap';
+import { Route, Routes } from 'react-router-dom';
+import Header from './components/Header';
+import Footer from './components/Footer';
+import SaveForm from './pages/match/SaveForm';
+import MyPage from './pages/user/MyPage';
+import Main from './pages/match/Main';
+import Detail from './pages/match/Detail';
+import Chatting from './pages/chat/Chatting';
+import AlarmMessage from './pages/alarm/AlarmMessage';
+import UpdateForm from './pages/match/UpdateForm';
 
 function App() {
-    const [message, setMessage] = useState([]);
-    useEffect(() => {
-        fetch("/hello")
-            .then((res) => {
-                return res.json();
-            })
-            .then((data) => {
-                setMessage(data);
-            });
-    }, []);
-    return (
-        <div className="App">
-            <header className="App-header">
-                <img src={logo} className="App-logo" alt="logo"/>
-                <p>
-                    Edit <code>src/App.js</code> and save to reload.
-                </p>
-                <a
-                    className="App-link"
-                    href="https://reactjs.org"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    Learn React
-                </a>
-                <ul>
-                    {message.map((v, idx) => <li key={`${idx}-${v}`}>{v}</li>)}
-                </ul>
-            </header>
-        </div>
-    );
+  return (
+    <div>
+      <Header></Header>
+      <Container>
+        <Routes>
+          <Route path="/" element={<Main />} />
+          <Route path="/saveForm" element={<SaveForm />} />
+          <Route path="/api/matching/:id" element={<Detail />} />
+          <Route path="/updateForm/:id" element={<UpdateForm />} />
+          <Route path="/alarm" element={<AlarmMessage />} />
+          <Route path="/chatting" element={<Chatting />} />
+          <Route path="/myPage" element={<MyPage />} />
+          {/*           회원 > 가입 , 로그인 관련 페이지
+          <Route path="/loginForm" element={'<LoginForm />'} />
+          <Route path="/joinForm" element={'<JoinForm />'} /> */}
+        </Routes>
+      </Container>
+      <Footer></Footer>
+    </div>
+  );
 }
 
 export default App;
