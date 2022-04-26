@@ -19,7 +19,7 @@ public class MemoryMatchingRepository implements MatchingRepository {
                 matching.getTennisCourtName(), matching.getNumberOfMember(), matching.getMinimumLevel(),
                 matching.getMaximumLevel(), matching.getRecruitmentAge(),
                 matching.getPreferenceTeamGame(), matching.getRentalCost(),
-                matching.getStatus(), matching.getRecruitmentAnnual(), matching.getMatchingContent());
+                matching.getStatus(), matching.getRecruitmentAnnual(), matching.getMatchingContent(), matching.getSex());
 
         matchings.put(id, saveMatching);
         return saveMatching;

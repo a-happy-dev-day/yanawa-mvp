@@ -7,10 +7,7 @@ import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import our.fashionablesimba.yanawa.matching.domain.matching.Matching;
-import our.fashionablesimba.yanawa.matching.domain.matching.PreferenceTeamGame;
-import our.fashionablesimba.yanawa.matching.domain.matching.RatingLevel;
-import our.fashionablesimba.yanawa.matching.domain.matching.RecruitmentAge;
+import our.fashionablesimba.yanawa.matching.domain.matching.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -45,10 +42,12 @@ public class MatchingDto {
     private PreferenceTeamGame teamGame;
     @ApiModelProperty(value = "1인당 내야할 코트 비용, 음수가 될수 없음")
     private BigDecimal rentalCost;
+    @ApiModelProperty(value = "모집하려는 성별")
+    private PreferenceSex sex;
 
     public MatchingDto() {/*no-op*/}
 
-    public MatchingDto(Long matchingId, Long userId, String tennisCourtName, LocalDateTime matchingDate, int numberOfMember, RecruitmentAge age, RatingLevel minimumLevel, RatingLevel maximumLevel, String content, int recruitmentAnnual, PreferenceTeamGame teamGame, BigDecimal rentalCost) {
+    public MatchingDto(Long matchingId, Long userId, String tennisCourtName, LocalDateTime matchingDate, int numberOfMember, RecruitmentAge age, RatingLevel minimumLevel, RatingLevel maximumLevel, String content, int recruitmentAnnual, PreferenceTeamGame teamGame, BigDecimal rentalCost, PreferenceSex sex) {
         this.matchingId = matchingId;
         this.userId = userId;
         this.tennisCourtName = tennisCourtName;
@@ -61,6 +60,7 @@ public class MatchingDto {
         this.recruitmentAnnual = recruitmentAnnual;
         this.teamGame = teamGame;
         this.rentalCost = rentalCost;
+        this.sex = sex;
     }
 
     public Long getMatchingId() {
@@ -111,16 +111,20 @@ public class MatchingDto {
         return rentalCost;
     }
 
+    public PreferenceSex getSex() {
+        return sex;
+    }
+
     public Matching toMatching() {
         return new Matching(userId, matchingDate, minimumLevel, maximumLevel,
-                age, teamGame, rentalCost, content, tennisCourtName, recruitmentAnnual, numberOfMember);
+                age, teamGame, rentalCost, content, tennisCourtName, recruitmentAnnual, numberOfMember, sex);
     }
 
     public MatchingDto(Matching matching) {
         this(matching.getMatchingId(), matching.getUserId(), matching.getTennisCourtName(), matching.getMatchingDate(), matching.getNumberOfMember(),
                 matching.getRecruitmentAge(), matching.getMinimumLevel(), matching.getMaximumLevel(),
                 matching.getMatchingContent(), matching.getRecruitmentAnnual(), matching.getPreferenceTeamGame(),
-                matching.getRentalCost());
+                matching.getRentalCost(), matching.getSex());
     }
 
 
