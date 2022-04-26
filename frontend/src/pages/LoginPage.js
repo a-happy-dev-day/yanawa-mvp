@@ -1,8 +1,40 @@
-import React from "react";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import logo from "../assets/image/logo_blue.png";
 
 const LoginPage = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+
+  const onChangeEmailHandler = (Event) => {
+    setEmail(Event.currentTarget.value);
+  };
+  const onChangePasswordHandler = (Event) => {
+    setPassword(Event.currentTarget.value);
+  };
+
+  const onClickSignHandler = () => {
+    navigate("/register");
+  };
+
+  const onClickHandler = () => {
+    console.log("email", email);
+    console.log("password", password);
+    fetch("/api/user/login", {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify({
+        email: email,
+        password: password,
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => console.log(data));
+  };
   return (
     <Wrapper>
       <LogoImage src={logo} alt='다나와' />
@@ -14,12 +46,26 @@ const LoginPage = () => {
         점점 내 레벨을 업 해보세요!
       </Title>
 
-      <SignLink href='./register'>회원가입</SignLink>
-      <form>
-        <Input placeholder='아이디' />
-        <Input placeholder='비밀번호' />
-        <NextButton>로그인</NextButton>
+      <form id='submit' style={{ position: "relative" }}>
+        <SignLink onClick={onClickSignHandler}>회원가입</SignLink>
+        <Input
+          value={email}
+          onChange={onChangeEmailHandler}
+          placeholder='이메일'
+          type='email'
+          required
+        />
+        <Input
+          value={password}
+          onChange={onChangePasswordHandler}
+          placeholder='비밀번호'
+          type='password'
+          required
+        />
       </form>
+      <NextButton form='submit' onClick={onClickHandler}>
+        로그인
+      </NextButton>
     </Wrapper>
   );
 };
@@ -72,12 +118,15 @@ const Input = styled.input`
   }
 `;
 
-const SignLink = styled.a`
-  display: block;
-  width: 100%;
-  text-align: right;
+const SignLink = styled.button`
+  position: absolute;
+  border: none;
+  cursor: pointer;
+  right: 0;
+  top: -20px;
   text-decoration: none;
   color: #000;
+  background-color: transparent;
 `;
 
 const NextButton = styled.button`

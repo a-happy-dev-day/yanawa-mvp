@@ -61,31 +61,41 @@ const RegisterPage = () => {
         <Header>
           <FaChevronLeft style={{ paddingRight: "3px" }} /> 기본정보
         </Header>
-        <form style={{ display: "flex", flexDirection: "column" }}>
-          <label htmlFor='email'>이메일을 입력해주세요.</label>
-          <input
+        <form id='submit' style={{ display: "flex", flexDirection: "column" }}>
+          <Label htmlFor='email'>이메일</Label>
+          <Input
             id='email'
             type='email'
+            placeholder='이메일'
             value={email}
             onChange={onChangeEmailHandler}
-          ></input>
-          <label htmlFor='password'>비밀번호를 입력해주세요.</label>
-          <input
+            required
+          ></Input>
+          <Label htmlFor='password'>비밀번호</Label>
+          <Input
             id='password'
             type='password'
+            placeholder='비밀번호'
             value={password}
             onChange={onChangePasswordHandler}
-          ></input>
-          <label htmlFor='confirmPassword'>비빌번호 확인</label>
-          <input
+            required
+          ></Input>
+          <Label htmlFor='confirmPassword'>비빌번호 확인</Label>
+          <Input
             id='confirmPassword'
             type='password'
+            placeholder='비밀번호 확인'
             value={confirmPassword}
             onChange={onChangeConfirmPassworHandler}
-          ></input>
+            required
+          ></Input>
         </form>
-        <NextButton disabled={activeButton} onClick={onClickHandler}>
-          레벨 측정 시작
+        <NextButton
+          form='submit'
+          disabled={activeButton}
+          onClick={onClickHandler}
+        >
+          다음으로(1/4)
         </NextButton>
       </Wrapper>
     );
@@ -96,16 +106,17 @@ const RegisterPage = () => {
           <FaChevronLeft style={{ paddingRight: "3px" }} /> 기본정보
         </Header>
         <form style={{ display: "flex", flexDirection: "column" }}>
-          <label htmlFor='nickname'>닉네임을 입력해주세요!</label>
-          <input
+          <Label htmlFor='nickname'>닉네임을 입력해주세요!</Label>
+          <Input
             id='nickname'
             type='text'
+            placeholder='닉네임 입력'
             value={nickname}
             onChange={onChangeNicknameHandler}
-          ></input>
+          ></Input>
         </form>
         <NextButton disabled={activeButton} onClick={onClickHandler}>
-          레벨 측정 시작
+          다음으로(2/4)
         </NextButton>
       </Wrapper>
     );
@@ -115,28 +126,28 @@ const RegisterPage = () => {
         <Header>
           <FaChevronLeft style={{ paddingRight: "3px" }} /> 기본정보
         </Header>
-        <form style={{ display: "flex", flexDirection: "column" }}>
-          <label htmlFor='sex'>성별을 선택해 주세요!</label>
-          <input
+        <Title htmlFor='sex'>성별을 선택해 주세요!</Title>
+        <form>
+          <RadioInput
             id='male'
             type='radio'
             name='sex'
             value='남성'
             onChange={onChangeSexHandler}
-          ></input>
-          <label htmlFor='male'>남성</label>
-          <input
+          ></RadioInput>
+          <RadioLabel htmlFor='male'>남성</RadioLabel>
+          <RadioInput
             id='female'
             type='radio'
             name='sex'
             value='여성'
             onChange={onChangeSexHandler}
-          ></input>
-          <label htmlFor='female'>여성</label>
+          ></RadioInput>
+          <RadioLabel htmlFor='female'>여성</RadioLabel>
+          <NextButton disabled={activeButton} onClick={onClickHandler}>
+            다음으로(3/4)
+          </NextButton>
         </form>
-        <NextButton disabled={activeButton} onClick={onClickHandler}>
-          레벨 측정 시작
-        </NextButton>
       </Wrapper>
     );
   } else if (registerStep === 3) {
@@ -146,14 +157,14 @@ const RegisterPage = () => {
           <FaChevronLeft style={{ paddingRight: "3px" }} /> 기본정보
         </Header>
         <form style={{ display: "flex", flexDirection: "column" }}>
-          <label htmlFor='birth'>생년월일을 알려주세요!</label>
-          <input
+          <Label htmlFor='birth'>생년월일을 알려주세요!</Label>
+          <Input
             id='birth'
             type='date'
             value={birth}
             onChange={onChangeBirthHandler}
             placeholder='YYYY/MM/DD'
-          ></input>
+          ></Input>
         </form>
         <NextButton disabled={activeButton} onClick={onClickHandler}>
           레벨 측정 시작
@@ -188,31 +199,35 @@ const Header = styled.header`
 const Title = styled.div`
   font-size: 12px;
   color: rgba(112, 112, 112, 1);
-  margin-bottom: 44px;
+  margin-bottom: 6px;
 `;
 
 const Label = styled.label`
-  display: block;
-  text-align: center;
-  background-color: transparent;
-  cursor: pointer;
-  border: 1px solid rgba(68, 68, 68, 1);
-  font-size: 14px;
-  font-family: inherit;
-  padding: 14px 0 13px;
-  border-radius: 22px;
-  margin-bottom: 10px;
-  &:hover {
-    background-color: rgba(0, 39, 253, 1);
-    color: #fff;
-  }
+  color: #707070;
+  margin-bottom: 6px;
+  font-size: 12px;
 `;
 
 const Input = styled.input`
+  border: none;
+  font-size: 24px;
+  font-family: inherit;
+  margin-bottom: 12px;
+  &::placeholder {
+    color: rgba(219, 219, 219, 1);
+  }
+`;
+const RadioLabel = styled.label`
+  font-size: 24px;
+  margin-right: 25px;
+  font-weight: 700;
+  color: rgba(219, 219, 219, 1);
+`;
+
+const RadioInput = styled.input`
   display: none;
-  &:checked + ${Label} {
-    background-color: rgba(0, 39, 253, 1);
-    color: #fff;
+  &:checked + ${RadioLabel} {
+    color: #343a40;
   }
 `;
 

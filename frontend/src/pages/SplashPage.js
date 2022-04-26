@@ -1,8 +1,16 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import logo from "../assets/image/logo1.png";
 
 const SplashPage = () => {
+  const navigate = useNavigate();
+  useEffect(() => {
+    setTimeout(() => {
+      navigate("/login");
+    }, 1000);
+  }, []);
+
   return (
     <Wrapper>
       <img src={logo} alt='야나와' />
