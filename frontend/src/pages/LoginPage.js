@@ -19,21 +19,25 @@ const LoginPage = () => {
     navigate("/register");
   };
 
-  const onClickHandler = () => {
-    console.log("email", email);
-    console.log("password", password);
-    fetch("/api/user/login", {
-      method: "POST",
-      headers: {
-        "Content-type": "application/json",
-      },
-      body: JSON.stringify({
-        email: email,
-        password: password,
-      }),
-    })
-      .then((response) => response.json())
-      .then((data) => console.log(data));
+  const onClickHandler = async (Event) => {
+    // Event.prevenDefalult();
+    const url = "http://3.34.47.146:14122";
+    try {
+      const res = await fetch("/api/user/login/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          user: {
+            email: email,
+            password: password,
+          },
+        }),
+      });
+      const resJson = await res.json();
+      console.log(resJson);
+    } catch (err) {}
   };
   return (
     <Wrapper>
@@ -63,9 +67,7 @@ const LoginPage = () => {
           required
         />
       </form>
-      <NextButton form='submit' onClick={onClickHandler}>
-        로그인
-      </NextButton>
+      <NextButton onClick={onClickHandler}>로그인</NextButton>
     </Wrapper>
   );
 };
