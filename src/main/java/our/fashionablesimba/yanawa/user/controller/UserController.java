@@ -41,4 +41,15 @@ public class UserController {
         return ResponseEntity.ok(new UserDto.Res(userService.findById(userId)));
     }
 
+    @GetMapping("/emails/{email}/exists")
+    @ApiOperation(value = "이메일 중복 확인")
+    public ResponseEntity<Boolean> checkEmailDuplicate(@PathVariable String email) {
+        return ResponseEntity.ok(userService.checkEmailDuplicate(email));
+    }
+
+    @GetMapping("/nicknames/{nickname}/exists")
+    @ApiOperation(value = "닉네임 중복 확인")
+    public ResponseEntity<Boolean> checkNicknameDuplicate(@PathVariable String nickname) {
+        return ResponseEntity.ok(userService.checkNicknameDuplicate(nickname));
+    }
 }

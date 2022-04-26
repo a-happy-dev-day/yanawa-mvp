@@ -67,6 +67,17 @@ public class UserService {
         return user;
     }
 
+    @Transactional(readOnly = true)
+    public boolean checkEmailDuplicate(String email) {
+        return userRepository.existsByEmail(Email.of(email));
+    }
+
+    @Transactional(readOnly = true)
+    public boolean checkNicknameDuplicate(String nickname) {
+        return userRepository.existsByNickname(nickname);
+    }
+
+
 //    public UserDto.Res updateUser(int i, int updateLevel) {
 //
 //        User byId = findById(i);
