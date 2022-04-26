@@ -1,7 +1,7 @@
 import React, { useState, useRef } from "react";
 import styled from "styled-components";
 import { FaChevronLeft } from "react-icons/fa";
-import { createSearchParams, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { LevelCheckData } from "../assets/data/levelcheckdata";
 
 const LevelCheckPage = () => {
@@ -10,6 +10,7 @@ const LevelCheckPage = () => {
   const [levelScore, setLevelScore] = useState(0);
   const levelScoreTotal = useRef(0);
   const navigate = useNavigate();
+  const location = useLocation();
 
   const changeHandler = (checked, grade) => {
     setActiveButton(!checked);
@@ -37,11 +38,15 @@ const LevelCheckPage = () => {
     if (LevelCheckData.length !== levelCheckNum + 1) {
       setLevelCheckNum(levelCheckNum + 1);
     } else {
-      navigate({
-        pathname: "/levelresult",
-        search: `?${createSearchParams({
+      navigate("/levelresult", {
+        state: {
+          email: location.state.email,
+          password: location.state.password,
+          sex: location.state.sex,
+          birth: location.state.birth,
+          nickname: location.state.nickname,
           level: level,
-        })}`,
+        },
       });
     }
   };

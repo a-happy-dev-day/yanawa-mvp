@@ -8,6 +8,8 @@ import LevelYearPage from "./pages/LevelYearPage.js";
 import LevelResultPage from "./pages/LevelResultPage.js";
 import SplashPage from "./pages/SplashPage.js";
 import LoginPage from "./pages/LoginPage";
+import RegisterPage from "./pages/RegisterPage";
+import NicknamePage from "./pages/NicknamePage";
 
 function App() {
   return (
@@ -20,6 +22,8 @@ function App() {
         <Route path='/levelyear' element={<LevelYearPage />} />
         <Route path='/levelcheck' element={<LevelCheckPage />} />
         <Route path='/levelresult' element={<LevelResultPage />} />
+        <Route path='/register' element={<RegisterPage />} />
+        <Route path='/nickname' element={<NicknamePage />} />
       </Routes>
     </div>
   );

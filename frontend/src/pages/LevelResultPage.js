@@ -1,13 +1,15 @@
 import React from "react";
 import styled from "styled-components";
 import { FaChevronLeft } from "react-icons/fa";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { resultData } from "../assets/data/resultdata";
 
 const LevelResultPage = () => {
   const navigate = useNavigate();
-  const [searchParams] = useSearchParams();
-  const level = searchParams.get("level");
+  const location = useLocation();
+  const level = location.state.level;
+
+  console.log(location.state);
 
   return (
     <div>
@@ -18,7 +20,7 @@ const LevelResultPage = () => {
         </Header>
         <Main>
           <MainTitle>
-            테린이 님의
+            {location.state.nickname} 님의
             <br />
             {resultData[level - 1].level}
           </MainTitle>

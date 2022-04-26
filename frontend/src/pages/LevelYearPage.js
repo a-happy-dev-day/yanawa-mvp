@@ -1,18 +1,24 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { FaChevronLeft } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const LevelYearPage = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const [activeButton, setActiveButton] = useState(1);
 
+  console.log(location);
   const changeHandler = (value) => {
     if (value.length > 0) {
       setActiveButton(0);
     } else {
       setActiveButton(1);
     }
+  };
+
+  const onClickHandler = () => {
+    navigate("/levelcheck", { state: location.state });
   };
 
   return (
@@ -33,10 +39,7 @@ const LevelYearPage = () => {
         ></Input>
       </form>
 
-      <NextButton
-        disabled={activeButton}
-        onClick={() => navigate("/levelcheck")}
-      >
+      <NextButton disabled={activeButton} onClick={onClickHandler}>
         다음으로 (1/5)
       </NextButton>
     </Wrapper>

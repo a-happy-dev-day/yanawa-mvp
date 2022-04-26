@@ -14,7 +14,7 @@ const LoginPage = () => {
         점점 내 레벨을 업 해보세요!
       </Title>
 
-      <SignLink href='./Resister'>회원가입</SignLink>
+      <SignLink href='./register'>회원가입</SignLink>
       <form>
         <Input placeholder='아이디' />
         <Input placeholder='비밀번호' />

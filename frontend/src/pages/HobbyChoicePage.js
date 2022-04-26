@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { FaChevronLeft } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const HobbyChoicePage = () => {
+  const location = useLocation();
   const navigate = useNavigate();
   const [activeButton, setActiveButton] = useState(1);
 
@@ -30,6 +31,10 @@ const HobbyChoicePage = () => {
     setActiveButton(!checked);
   };
 
+  const onClickHandler = () => {
+    navigate("/levelyear", { state: location.state });
+  };
+
   return (
     <Wrapper>
       <Header>
@@ -52,10 +57,7 @@ const HobbyChoicePage = () => {
         ))}
       </form>
 
-      <NextButton
-        disabled={activeButton}
-        onClick={() => navigate("/levelyear")}
-      >
+      <NextButton disabled={activeButton} onClick={onClickHandler}>
         레벨 측정 시작
       </NextButton>
     </Wrapper>
