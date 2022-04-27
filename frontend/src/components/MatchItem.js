@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card } from 'react-bootstrap';
+import { Badge, Card } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import goDetail from './in.png';
 
@@ -19,7 +19,7 @@ const MatchItem = (props) => {
     teamGame,
     tennisCourtName,
     userId,
-  } = props.match;
+  } = props.mhg;
 
   const id = matchingId;
 
@@ -38,7 +38,7 @@ const MatchItem = (props) => {
             width: '80%',
           }}
         >
-          <Card.Text
+          {/* <Card.Text
             className="btn btn-primary"
             style={{
               backgroundColor: '#FF8D9E',
@@ -47,7 +47,8 @@ const MatchItem = (props) => {
             }}
           >
             {sex === 'MEN' ? '남' : '여'}복
-          </Card.Text>{' '}
+          </Card.Text>{' '} */}
+          <Badge bg="info">{sex === 'MEN' ? '남' : '여'}복</Badge>{' '}
           {tennisCourtName}
         </Card.Title>
         <Card.Text

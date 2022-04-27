@@ -36,8 +36,8 @@ const Main = () => {
         나와 맞는 매칭
       </h6>
       {/* DB-> 백엔드 에서 가져온 매칭 데이터들 뿌려줄 부분 */}
-      {matches.map((match) => (
-        <MatchItem key={match.id} match={match} />
+      {matches.map((mh) => (
+        <MatchItem key={mh.id} mhg={mh} />
       ))}
     </div>
   );

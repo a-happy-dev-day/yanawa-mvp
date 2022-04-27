@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
+import { Badge, ListGroup } from 'react-bootstrap';
+import { useParams } from 'react-router-dom';
 
 const Detail = (props) => {
+  console.log('detail log 확인', props);
   //   const {
   //     matchingId,
   //     age,
@@ -16,11 +19,13 @@ const Detail = (props) => {
   //     tennisCourtName,
   //     userId,
   //   } = props.match;
-  //   const id = props.match.params.matchingId;
 
-  const id = props.match.params.matchingId;
+  const propsParam = useParams();
+  const matchingId = propsParam.id;
+  console.log('propsParam', propsParam);
+  console.log('matchingId', matchingId);
 
-  const [match, setMatch] = useState({
+  const [matching, setMatching] = useState({
     matchingId: '',
     age: '',
     content: '',
@@ -34,18 +39,18 @@ const Detail = (props) => {
     teamGame: '',
     tennisCourtName: '',
     userId: '',
-    id: '',
-    place: '',
-    date: '',
   });
 
   useEffect(() => {
-    fetch('http://3.34.47.146:14122/api/matching/' + id)
+    fetch('http://3.34.47.146:14122/api/matching/' + matchingId)
       .then((res) => res.json())
       .then((res) => {
-        setMatch(res);
+        console.log(res);
+        setMatching(res);
       });
   }, []);
+
+  console.log('props 확인', matching.tennisCourtName);
 
   return (
     <div>
@@ -58,10 +63,132 @@ const Detail = (props) => {
       >
         매칭 자세히 보기
       </h6>
-      <h6>{match.tennisCourtName}</h6>
-      <h6>{match.matchingDate}</h6>
-      <h6>보라매</h6>
-      <h6>2022/04/25</h6>
+
+      <ListGroup as="ol" numbered>
+        <ListGroup.Item
+          as="li"
+          className="d-flex justify-content-between align-items-start"
+        >
+          <div className="ms-2 me-auto">
+            <div className="fw-bold">코트</div>
+          </div>
+          <Badge bg="primary" pill>
+            <h6>{matching.tennisCourtName}</h6>
+          </Badge>
+        </ListGroup.Item>
+        <ListGroup.Item
+          as="li"
+          className="d-flex justify-content-between align-items-start"
+        >
+          <div className="ms-2 me-auto">
+            <div className="fw-bold">일시</div>
+          </div>
+          <Badge bg="primary">
+            <h6>{matching.matchingDate}</h6>
+          </Badge>
+        </ListGroup.Item>
+        <ListGroup.Item
+          as="li"
+          className="d-flex justify-content-between align-items-start"
+        >
+          <div className="ms-2 me-auto">
+            <div className="fw-bold">선호게임</div>
+          </div>
+          <Badge bg="primary" pill>
+            <h6>{matching.teamGame === 'MATCH' ? '매치' : '랠리'}</h6>
+          </Badge>
+        </ListGroup.Item>
+        <ListGroup.Item
+          as="li"
+          className="d-flex justify-content-between align-items-start"
+        >
+          <div className="ms-2 me-auto">
+            <div className="fw-bold">모집성별</div>
+          </div>
+          <Badge bg="primary" pill>
+            <h6>{matching.sex === 'MEN' ? '남' : '여'}</h6>
+          </Badge>
+        </ListGroup.Item>
+        <ListGroup.Item
+          as="li"
+          className="d-flex justify-content-between align-items-start"
+        >
+          <div className="ms-2 me-auto">
+            <div className="fw-bold">모집인원</div>
+          </div>
+          <Badge bg="primary" pill>
+            <h6>{matching.numberOfMember}명</h6>
+          </Badge>
+        </ListGroup.Item>
+        <ListGroup.Item
+          as="li"
+          className="d-flex justify-content-between align-items-start"
+        >
+          <div className="ms-2 me-auto">
+            <div className="fw-bold">구력</div>
+          </div>
+          <Badge bg="primary" pill>
+            <h6>{matching.recruitmentAnnual}명</h6>
+          </Badge>
+        </ListGroup.Item>
+        <ListGroup.Item
+          as="li"
+          className="d-flex justify-content-between align-items-start"
+        >
+          <div className="ms-2 me-auto">
+            <div className="fw-bold">레벨</div>
+          </div>
+          <Badge bg="primary" pill>
+            <h6>
+              {matching.minimumLevel}~{matching.maximumLevel}
+            </h6>
+          </Badge>
+        </ListGroup.Item>
+        <ListGroup.Item
+          as="li"
+          className="d-flex justify-content-between align-items-start"
+        >
+          <div className="ms-2 me-auto">
+            <div className="fw-bold">모집연령</div>
+          </div>
+          <Badge bg="primary" pill>
+            <h6>{matching.age === 'TWENTIES' ? '20대' : '무관'}</h6>
+          </Badge>
+        </ListGroup.Item>
+        <ListGroup.Item
+          as="li"
+          className="d-flex justify-content-between align-items-start"
+        >
+          <div className="ms-2 me-auto">
+            <div className="fw-bold">1인 코트비용</div>
+          </div>
+          <Badge bg="primary" pill>
+            <h6>{matching.rentalCost}원</h6>
+          </Badge>
+        </ListGroup.Item>
+        <ListGroup.Item
+          as="li"
+          className="d-flex justify-content-between align-items-start"
+        >
+          <div className="ms-2 me-auto">
+            <div className="fw-bold">남길 말</div>
+          </div>
+          <Badge bg="primary" pill>
+            잘 부탁드립니다!
+          </Badge>
+        </ListGroup.Item>
+        <ListGroup.Item
+          as="li"
+          className="d-flex justify-content-between align-items-start"
+        >
+          <div className="ms-2 me-auto">
+            <div className="fw-bold">매칭 멤버</div>
+          </div>
+          <Badge bg="primary" pill>
+            심바
+          </Badge>
+        </ListGroup.Item>
+      </ListGroup>
     </div>
   );
 };
