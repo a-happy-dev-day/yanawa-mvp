@@ -1,7 +1,7 @@
 body {
   display: flex;
   justify-content: center;
-  background-color: #e5e5e5;
+  background-color: #e5e5e5 !important;
 }
 
 .hide {
