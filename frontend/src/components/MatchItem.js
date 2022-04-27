@@ -1,7 +1,7 @@
-import React from 'react';
-import { Badge, Card } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
-import goDetail from './in.png';
+import React from "react";
+import { Badge, Card } from "react-bootstrap";
+import { Link } from "react-router-dom";
+import goDetail from "./in.png";
 
 const MatchItem = (props) => {
   // 백엔드에서 넘겨받은 데이터 대략 이렇게....
@@ -29,13 +29,18 @@ const MatchItem = (props) => {
   //   };
 
   return (
-    <Card>
+    <Card
+      style={{
+        border: "white",
+        marginBottom: "7px",
+      }}
+    >
       <Card.Body>
         <Card.Title
           style={{
-            fontSize: '13px',
-            fontWeight: 'bold',
-            width: '80%',
+            fontSize: "13px",
+            fontWeight: "bold",
+            width: "80%",
           }}
         >
           {/* <Card.Text
@@ -48,30 +53,30 @@ const MatchItem = (props) => {
           >
             {sex === 'MEN' ? '남' : '여'}복
           </Card.Text>{' '} */}
-          <Badge bg="info">{sex === 'MEN' ? '남' : '여'}복</Badge>{' '}
+          <Badge bg="info">{sex === "MEN" ? "남" : "여"}복</Badge>{" "}
           {tennisCourtName}
         </Card.Title>
         <Card.Text
           style={{
-            fontSize: '8px',
-            width: '80%',
-            display: 'inline',
+            fontSize: "8px",
+            width: "80%",
+            display: "inline",
           }}
         >
-          {matchingDate} | {sex === 'MEN' ? '남' : '여'} | {recruitmentAnnual}년
+          {matchingDate} | {sex === "MEN" ? "남" : "여"} | {recruitmentAnnual}년
           이하 | {minimumLevel}
           부터 ~ {maximumLevel}까지
         </Card.Text>
         <Link
-          to={'/api/matching/' + id}
+          to={"/api/matching/" + id}
           className="btn btn-primary"
           style={{
-            backgroundColor: 'white',
-            border: 'white',
-            color: 'black',
-            justifyContent: 'end',
-            alignItems: 'center',
-            display: 'inline',
+            backgroundColor: "white",
+            border: "white",
+            color: "black",
+            justifyContent: "end",
+            alignItems: "center",
+            display: "inline",
           }}
         >
           <img src={goDetail} width="20" height="20" alt="Detail" />

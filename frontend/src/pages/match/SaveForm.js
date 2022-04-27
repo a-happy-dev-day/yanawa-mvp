@@ -1,18 +1,37 @@
-import React, { useState } from 'react';
-import { Button, Form } from 'react-bootstrap';
+import React, { useState } from "react";
+import { Button, Form } from "react-bootstrap";
 
 const SaveForm = (props) => {
   const [match, setMatch] = useState({
-    place: '',
-    date: '',
-    level: '',
-    age: '',
-    sex: '',
-    pref: '',
-    personel: '',
-    cost: '',
-    saying: '',
+    matchingId: "",
+    age: "",
+    content: "",
+    matchingDate: "",
+    maximumLevel: "",
+    minimumLevel: "",
+    numberOfMember: "",
+    recruitmentAnnual: "",
+    rentalCost: "",
+    sex: "",
+    teamGame: "",
+    tennisCourtName: "",
+    userId: "",
   });
+
+  // {
+  //   "userId": 1,
+  //   "tennisCourtName": "구로테니스",
+  //   "matchingDate": "2022-05-07T20:30",
+  //   "numberOfMember": 2,
+  //   "age": "OVERFIFTIES",
+  //   "minimumLevel": "A",
+  //   "maximumLevel": "B",
+  //   "content": "content",
+  //   "recruitmentAnnual": 1,
+  //   "teamGame": "RELLY",
+  //   "rentalCost": 10000,
+  //   "sex": "WOMEN"
+  // }
 
   const changeValue = (e) => {
     setMatch({
@@ -22,44 +41,58 @@ const SaveForm = (props) => {
   };
 
   const submitMatch = (e) => {
+    console.log("값 체킹 f : " + match.matchingDate); // 값 체킹
+    console.log("값 체킹 f : " + match.matchingDate); // 값 체킹
     e.preventDefault();
-    fetch('http://localhost:8080/match', {
-      method: 'POST',
+
+    fetch("http://3.34.47.146:14122/api/matching", {
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json; charset=utf-8',
+        "Content-Type": "application/json; charset=utf-8",
       },
       body: JSON.stringify(match),
     })
       .then((res) =>
         //   res.JSON()
         {
+          console.log("값 체킹123" + match); // 값 체킹
           if (res.status === 201) {
-            // console.log(res); // 값 체킹
+            console.log("값 체킹" + res); // 값 체킹
             return res.JSON();
           } else {
             return null;
           }
-        },
+        }
       )
       .then((res) => {
         // 백엔드 서버 실행 후 넘기는 값 테스트 해 볼 부분
-        console.log(res);
+        console.log("테스트 af" + res);
         if (res !== null) {
           // 일단 등록 성공 후 매칭리스트(메인)페이지로 가도록 .. 현재 기획안 상태에서는 완성 상세 페이지로 가게 되어있는데.. 이 부분은 구현현황에 따라 변경
-          props.history.push('/');
+          props.history.push("/main");
         } else {
-          alert('오류로 인해 매칭 등록이 안되었습니다.');
+          props.history.push("/main");
+          // alert("오류로 인해 매칭 등록이 안되었습니다.");
         }
       });
   };
 
   return (
-    <div>
+    <div
+      style={{
+        width: "375px",
+        height: "141%",
+        borderRadius: "20px",
+        marginBottom: "20px",
+        padding: "10px 10px 10px 10px",
+        backgroundColor: "#F4F4F4",
+      }}
+    >
       <h6
         style={{
-          fontWeight: 'bold',
-          marginTop: '30px',
-          marginBottom: '20px',
+          fontWeight: "bold",
+          marginTop: "30px",
+          marginBottom: "20px",
         }}
       >
         매칭 만들기
@@ -71,7 +104,7 @@ const SaveForm = (props) => {
             type="text"
             placeholder="코드장 입력"
             onChange={changeValue}
-            name="place"
+            name="tennisCourtName"
           />
           <Form.Text className="text-muted"></Form.Text>
         </Form.Group>
@@ -81,17 +114,27 @@ const SaveForm = (props) => {
             type="text"
             placeholder="날짜/시간 선택"
             onChange={changeValue}
-            name="date"
+            name="matchingDate"
           />
           <Form.Text className="text-muted"></Form.Text>
         </Form.Group>
         <Form.Group className="mb-3" controlId="formBasicEmail">
-          <Form.Label>NTRP 레벨</Form.Label>
+          <Form.Label>최소 레벨</Form.Label>
           <Form.Control
             type="text"
-            placeholder="레벨 입력"
+            placeholder="레벨 입력 (A ~ E )"
             onChange={changeValue}
-            name="level"
+            name="minimumLevel"
+          />
+          <Form.Text className="text-muted"></Form.Text>
+        </Form.Group>
+        <Form.Group className="mb-3" controlId="formBasicEmail">
+          <Form.Label>최대 레벨</Form.Label>
+          <Form.Control
+            type="text"
+            placeholder="레벨 입력 (A ~ E )"
+            onChange={changeValue}
+            name="maximumLevel"
           />
           <Form.Text className="text-muted"></Form.Text>
         </Form.Group>
@@ -121,7 +164,7 @@ const SaveForm = (props) => {
             type="text"
             placeholder="매칭 / 랠리"
             onChange={changeValue}
-            name="pref"
+            name="teamGame"
           />
           <Form.Text className="text-muted"></Form.Text>
         </Form.Group>
@@ -131,7 +174,7 @@ const SaveForm = (props) => {
             type="text"
             placeholder="2명 / 4명"
             onChange={changeValue}
-            name="personel"
+            name="numberOfMember"
           />
           <Form.Text className="text-muted"></Form.Text>
         </Form.Group>
@@ -141,7 +184,7 @@ const SaveForm = (props) => {
             type="text"
             placeholder="1인 코트 비용 입력 (원)"
             onChange={changeValue}
-            name="cost"
+            name="rentalCost"
           />
           <Form.Text className="text-muted"></Form.Text>
         </Form.Group>
@@ -151,7 +194,7 @@ const SaveForm = (props) => {
             type="text"
             placeholder="매칭할 상대에게 하고 싶은 말을 적어주세요."
             onChange={changeValue}
-            name="saying"
+            name="content"
           />
           <Form.Text className="text-muted"></Form.Text>
         </Form.Group>
@@ -159,9 +202,11 @@ const SaveForm = (props) => {
         <Button
           variant="primary"
           type="submit"
-          style={{
-            alignItems: 'end',
-          }}
+          style={
+            {
+              // width: "40px",
+            }
+          }
         >
           매칭 만들기 완료
         </Button>
