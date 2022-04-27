@@ -36,8 +36,12 @@ const LoginPage = () => {
         }),
       });
       const resJson = await res.json();
-      setErrMessage(resJson.message);
       console.log(resJson);
+      if (resJson.message) {
+        setErrMessage(resJson.message);
+      } else if (resJson.email) {
+        navigate("/main");
+      }
     } catch (err) {}
   };
   return (
