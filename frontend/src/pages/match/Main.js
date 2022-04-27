@@ -21,7 +21,7 @@ const Main = () => {
     <div
       style={{
         width: "375px",
-        height: "190%",
+        // height: "190%",
         borderRadius: "20px",
         marginBottom: "20px",
         padding: "10px 10px 10px 10px",

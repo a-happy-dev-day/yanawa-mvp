@@ -68,9 +68,12 @@ const SaveForm = (props) => {
       )
       .then((res) => {
         // 백엔드 서버 실행 후 넘기는 값 테스트 해 볼 부분
-        console.log("테스트 af" + res);
+        console.log("테스트 af go main" + res);
+        console.log("navigate ??"); // 값 체킹
+        navigate("/main");
         if (res !== null) {
           // 일단 등록 성공 후 매칭리스트(메인)페이지로 가도록 .. 현재 기획안 상태에서는 완성 상세 페이지로 가게 되어있는데.. 이 부분은 구현현황에 따라 변경
+          console.log("navigate ??"); // 값 체킹
           navigate("/main");
         } else {
           // alert("오류로 인해 매칭 등록이 안되었습니다.");
@@ -99,110 +102,110 @@ const SaveForm = (props) => {
         매칭 만들기
       </h6>
       <Form onSubmit={submitMatch}>
-        <Form.Group className='mb-3' controlId='formBasicEmail'>
+        <Form.Group className="mb-3" controlId="formBasicEmail">
           <Form.Label>코트장 선택</Form.Label>
           <Form.Control
-            type='text'
-            placeholder='코드장 입력'
+            type="text"
+            placeholder="코드장 입력"
             onChange={changeValue}
-            name='tennisCourtName'
+            name="tennisCourtName"
           />
-          <Form.Text className='text-muted'></Form.Text>
+          <Form.Text className="text-muted"></Form.Text>
         </Form.Group>
-        <Form.Group className='mb-3' controlId='formBasicEmail'>
+        <Form.Group className="mb-3" controlId="formBasicEmail">
           <Form.Label>일시</Form.Label>
           <Form.Control
-            type='text'
-            placeholder='날짜/시간 선택'
+            type="text"
+            placeholder="날짜/시간 선택"
             onChange={changeValue}
-            name='matchingDate'
+            name="matchingDate"
           />
-          <Form.Text className='text-muted'></Form.Text>
+          <Form.Text className="text-muted"></Form.Text>
         </Form.Group>
-        <Form.Group className='mb-3' controlId='formBasicEmail'>
+        <Form.Group className="mb-3" controlId="formBasicEmail">
           <Form.Label>최소 레벨</Form.Label>
           <Form.Control
-            type='text'
-            placeholder='레벨 입력 (A ~ E )'
+            type="text"
+            placeholder="레벨 입력 (A ~ E )"
             onChange={changeValue}
-            name='minimumLevel'
+            name="minimumLevel"
           />
-          <Form.Text className='text-muted'></Form.Text>
+          <Form.Text className="text-muted"></Form.Text>
         </Form.Group>
-        <Form.Group className='mb-3' controlId='formBasicEmail'>
+        <Form.Group className="mb-3" controlId="formBasicEmail">
           <Form.Label>최대 레벨</Form.Label>
           <Form.Control
-            type='text'
-            placeholder='레벨 입력 (A ~ E )'
+            type="text"
+            placeholder="레벨 입력 (A ~ E )"
             onChange={changeValue}
-            name='maximumLevel'
+            name="maximumLevel"
           />
-          <Form.Text className='text-muted'></Form.Text>
+          <Form.Text className="text-muted"></Form.Text>
         </Form.Group>
-        <Form.Group className='mb-3' controlId='formBasicEmail'>
+        <Form.Group className="mb-3" controlId="formBasicEmail">
           <Form.Label>모집연령</Form.Label>
           <Form.Control
-            type='text'
-            placeholder='모집 연령 입력'
+            type="text"
+            placeholder="모집 연령 입력"
             onChange={changeValue}
-            name='age'
+            name="age"
           />
-          <Form.Text className='text-muted'></Form.Text>
+          <Form.Text className="text-muted"></Form.Text>
         </Form.Group>
-        <Form.Group className='mb-3' controlId='formBasicEmail'>
+        <Form.Group className="mb-3" controlId="formBasicEmail">
           <Form.Label>모집 성별</Form.Label>
           <Form.Control
-            type='text'
-            placeholder='모집성별'
+            type="text"
+            placeholder="모집성별"
             onChange={changeValue}
-            name='sex'
+            name="sex"
           />
-          <Form.Text className='text-muted'></Form.Text>
+          <Form.Text className="text-muted"></Form.Text>
         </Form.Group>
-        <Form.Group className='mb-3' controlId='formBasicEmail'>
+        <Form.Group className="mb-3" controlId="formBasicEmail">
           <Form.Label>선호게임</Form.Label>
           <Form.Control
-            type='text'
-            placeholder='매칭 / 랠리'
+            type="text"
+            placeholder="매칭 / 랠리"
             onChange={changeValue}
-            name='teamGame'
+            name="teamGame"
           />
-          <Form.Text className='text-muted'></Form.Text>
+          <Form.Text className="text-muted"></Form.Text>
         </Form.Group>
-        <Form.Group className='mb-3' controlId='formBasicEmail'>
+        <Form.Group className="mb-3" controlId="formBasicEmail">
           <Form.Label>모집인원</Form.Label>
           <Form.Control
-            type='text'
-            placeholder='2명 / 4명'
+            type="text"
+            placeholder="2명 / 4명"
             onChange={changeValue}
-            name='numberOfMember'
+            name="numberOfMember"
           />
-          <Form.Text className='text-muted'></Form.Text>
+          <Form.Text className="text-muted"></Form.Text>
         </Form.Group>
-        <Form.Group className='mb-3' controlId='formBasicEmail'>
+        <Form.Group className="mb-3" controlId="formBasicEmail">
           <Form.Label>코트비용</Form.Label>
           <Form.Control
-            type='text'
-            placeholder='1인 코트 비용 입력 (원)'
+            type="text"
+            placeholder="1인 코트 비용 입력 (원)"
             onChange={changeValue}
-            name='rentalCost'
+            name="rentalCost"
           />
-          <Form.Text className='text-muted'></Form.Text>
+          <Form.Text className="text-muted"></Form.Text>
         </Form.Group>
-        <Form.Group className='mb-3' controlId='formBasicEmail'>
+        <Form.Group className="mb-3" controlId="formBasicEmail">
           <Form.Label>하고 싶은 말</Form.Label>
           <Form.Control
-            type='text'
-            placeholder='매칭할 상대에게 하고 싶은 말을 적어주세요.'
+            type="text"
+            placeholder="매칭할 상대에게 하고 싶은 말을 적어주세요."
             onChange={changeValue}
-            name='content'
+            name="content"
           />
-          <Form.Text className='text-muted'></Form.Text>
+          <Form.Text className="text-muted"></Form.Text>
         </Form.Group>
 
         <Button
-          variant='primary'
-          type='submit'
+          variant="primary"
+          type="submit"
           style={
             {
               // width: "40px",
