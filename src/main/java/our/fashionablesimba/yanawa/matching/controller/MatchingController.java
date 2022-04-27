@@ -19,6 +19,7 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("api/matching")
 @Api(tags = "MATCHING APIs")
+@CrossOrigin
 public class MatchingController {
 
     Logger log = LoggerFactory.getLogger(this.getClass());

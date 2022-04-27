@@ -3,6 +3,7 @@ package our.fashionablesimba.yanawa.matching.controller;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -14,6 +15,7 @@ import our.fashionablesimba.yanawa.matching.exception.NotFoundMatchingException;
 import java.util.List;
 
 @RestControllerAdvice
+@CrossOrigin
 public class MatchingExceptionHandler extends CommonExceptionHandler {
 
     @ExceptionHandler(value = {NotFoundMatchingException.class})

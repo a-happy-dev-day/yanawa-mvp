@@ -40,11 +40,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .formLogin().disable()
                 .headers().frameOptions().disable();
-//
-//        http.authorizeRequests()
-//                .antMatchers("/swagger-ui/**", "/**").permitAll()
-//                .anyRequest().authenticated()
-//                .and()
-//                .httpBasic();
+
     }
 }

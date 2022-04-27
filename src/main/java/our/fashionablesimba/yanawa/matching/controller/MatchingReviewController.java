@@ -13,6 +13,7 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("api/matching/review")
 @Api(tags = "MATCHING REVIEW APIs")
+@CrossOrigin
 public class MatchingReviewController {
 
     private final MatchingReviewService matchingReviewService;

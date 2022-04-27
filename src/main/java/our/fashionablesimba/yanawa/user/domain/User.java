@@ -25,18 +25,21 @@ public class User {
 
     private LocalDate birth;
 
+    private Integer year;
+
 //    @Embedded
 //    private Level level;
 
-    private int level;
+    private Integer level;
 
     @Builder
-    public User(Email email, String password, String nickname, String sex, LocalDate birth, int level) {
+    public User(Email email, String password, String nickname, String sex, LocalDate birth,Integer year, Integer level) {
         this.email = email;
         this.password = password;
         this.nickname = nickname;
         this.sex = sex;
         this.birth = birth;
+        this.year = year;
         this.level = level;
     }
 

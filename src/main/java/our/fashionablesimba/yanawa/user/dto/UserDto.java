@@ -2,7 +2,6 @@ package our.fashionablesimba.yanawa.user.dto;
 
 
 import lombok.*;
-import org.hibernate.validator.constraints.Length;
 import our.fashionablesimba.yanawa.user.domain.Email;
 import our.fashionablesimba.yanawa.user.domain.User;
 
@@ -33,7 +32,9 @@ public class UserDto {
 
         private LocalDate birth;
 
-        private int level;
+        private Integer year;
+
+        private Integer level;
 
         @Builder
         public SignUpReq(Email email, String nickname, String password, String sex, LocalDate birth, int level) {
@@ -52,6 +53,7 @@ public class UserDto {
                     .nickname(this.nickname)
                     .sex(this.sex)
                     .birth(this.birth)
+                    .year(this.year)
                     .level(this.level)
                     .build();
         }
@@ -69,12 +71,15 @@ public class UserDto {
 
         private LocalDate birth;
 
-        private int level;
+        private Integer year;
+
+        private Integer level;
 
         public Res(User user) {
             this.email = user.getEmail();
             this.nickname = user.getNickname();
             this.sex = user.getSex();
+            this.year = user.getYear();
             this.birth = user.getBirth();
             this.level = user.getLevel();
         }
