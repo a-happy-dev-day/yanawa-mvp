@@ -17,7 +17,6 @@ const LevelYearPage = () => {
       setActiveButton(1);
     }
   };
-  console.log(typeof year);
 
   const onClickHandler = () => {
     navigate("/levelcheck", {
@@ -32,9 +31,13 @@ const LevelYearPage = () => {
     });
   };
 
+  const onClickHeaderHandler = () => {
+    navigate(-1);
+  };
+
   return (
     <Wrapper>
-      <Header>
+      <Header onClick={onClickHeaderHandler}>
         <FaChevronLeft style={{ paddingRight: "3px" }} /> 취미선택
       </Header>
       <form>
@@ -78,6 +81,7 @@ const Header = styled.header`
   margin-bottom: 44px;
   display: flex;
   align-items: center;
+  cursor: pointer;
 `;
 
 const Label = styled.label`

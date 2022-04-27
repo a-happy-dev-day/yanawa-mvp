@@ -23,8 +23,7 @@ const LoginPage = () => {
     navigate("/register");
   };
 
-  const onClickHandler = async (Event) => {
-    // Event.prevenDefalult();
+  const onClickHandler = async () => {
     try {
       const res = await fetch("/api/user/login/", {
         method: "POST",
@@ -52,14 +51,15 @@ const LoginPage = () => {
         점점 내 레벨을 업 해보세요!
       </Title>
 
-      <form id='submit' style={{ position: "relative" }}>
-        <SignLink onClick={onClickSignHandler}>회원가입</SignLink>
+      <form style={{ position: "relative" }}>
+        <SignLink type='button' onClick={onClickSignHandler}>
+          회원가입
+        </SignLink>
         <Input
           value={email}
           onChange={onChangeEmailHandler}
           placeholder='이메일'
           type='email'
-          required
         />
         <ErrText>{errMessage}</ErrText>
         <Input
@@ -67,7 +67,6 @@ const LoginPage = () => {
           onChange={onChangePasswordHandler}
           placeholder='비밀번호'
           type='password'
-          required
         />
       </form>
       <NextButton onClick={onClickHandler}>로그인</NextButton>

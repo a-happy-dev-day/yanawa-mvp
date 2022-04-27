@@ -13,18 +13,18 @@ const HobbyChoicePage = () => {
       name: "tennis",
       title: "🎾테니스",
     },
-    {
-      name: "soccer",
-      title: "⚽축구",
-    },
-    {
-      name: "basketball",
-      title: "🏀농구",
-    },
-    {
-      name: "golf",
-      title: "⛳골프",
-    },
+    // {
+    //   name: "soccer",
+    //   title: "⚽축구",
+    // },
+    // {
+    //   name: "basketball",
+    //   title: "🏀농구",
+    // },
+    // {
+    //   name: "golf",
+    //   title: "⛳골프",
+    // },
   ];
 
   const changeHandler = (checked) => {
@@ -35,9 +35,12 @@ const HobbyChoicePage = () => {
     navigate("/levelyear", { state: location.state });
   };
 
+  const onClickHeaderHandler = () => {
+    navigate(-1);
+  };
   return (
     <Wrapper>
-      <Header>
+      <Header onClick={onClickHeaderHandler}>
         <FaChevronLeft style={{ paddingRight: "3px" }} /> 취미선택
       </Header>
       <Title>매칭받고 싶은 취미를 선택해 주세요! (1가지)</Title>
@@ -84,6 +87,7 @@ const Header = styled.header`
   margin-bottom: 44px;
   display: flex;
   align-items: center;
+  cursor: pointer;
 `;
 
 const Title = styled.div`

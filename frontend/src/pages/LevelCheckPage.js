@@ -51,10 +51,13 @@ const LevelCheckPage = () => {
       });
     }
   };
+  const onClickHeaderHandler = () => {
+    navigate(-1);
+  };
 
   return (
     <Wrapper>
-      <Header>
+      <Header onClick={onClickHeaderHandler}>
         <FaChevronLeft style={{ paddingRight: "3px" }} /> 레벨 측정(
         {LevelCheckData[levelCheckNum].title})
       </Header>
@@ -110,6 +113,7 @@ const Header = styled.header`
   margin-bottom: 44px;
   display: flex;
   align-items: center;
+  cursor: pointer;
 `;
 
 const Title = styled.div`

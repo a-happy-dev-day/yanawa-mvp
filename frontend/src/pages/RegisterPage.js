@@ -5,7 +5,6 @@ import { useNavigate } from "react-router-dom";
 
 const RegisterPage = () => {
   const navigate = useNavigate();
-  const [activeButton, setActiveButton] = useState(1);
   const [registerStep, setRegisterStep] = useState(0);
 
   const [email, setEmail] = useState("");
@@ -18,10 +17,12 @@ const RegisterPage = () => {
   const [emailMessage, setEmailMessage] = useState("");
   const [passwordMessage, setPasswordMessage] = useState("");
   const [passwordConfirmMessage, setPasswordConfirmMessage] = useState("");
+  const [nicknameMessage, setNicknameMessage] = useState("");
 
   const [isEmail, setIsEmail] = useState(false);
   const [isPassword, setIsPassword] = useState(false);
   const [isPasswordConfirm, setIsPasswordConfirm] = useState(false);
+  const [isNickname, setIsNickname] = useState(false);
 
   const onChangeEmailHandler = (Event) => {
     const emailCurrent = Event.target.value;
@@ -72,7 +73,15 @@ const RegisterPage = () => {
   };
 
   const onChangeNicknameHandler = (Event) => {
-    setNickname(Event.currentTarget.value);
+    const nicknameCurrent = Event.target.value;
+    setNickname(nicknameCurrent);
+    if (nicknameCurrent < 2 || nicknameCurrent > 5) {
+      setNicknameMessage("2글자 이상 5글자 미만으로 입력해주세요.");
+      setIsNickname(false);
+    } else {
+      setNicknameMessage("올바른 이름 형식입니다 :)");
+      setIsNickname(true);
+    }
   };
 
   const onChangeSexHandler = (Event) => {
@@ -84,10 +93,37 @@ const RegisterPage = () => {
     console.log(Event.currentTarget.value);
   };
 
-  const onClickHandler = () => {
-    if (registerStep < 3) {
+  const onClickHeaderHandler = () => {
+    navigate(-1);
+  };
+
+  const onClickHandler = async () => {
+    if (registerStep === 0) {
+      try {
+        const res = await fetch(`/api/user/emails/${email}/exists`);
+        const resJson = await res.json();
+        if (resJson) {
+          setEmailMessage("이미 존재하는 이메일입니다. 다시 확인해주세요");
+          setIsEmail(false);
+        } else {
+          setRegisterStep(registerStep + 1);
+        }
+      } catch (err) {}
+    } else if (registerStep === 1) {
+      try {
+        const res = await fetch(`/api/user/nicknames/${nickname}/exists`);
+        const resJson = await res.json();
+        console.log(resJson);
+        if (resJson) {
+          setNicknameMessage("이미 존재하는 닉네임입니다. 다시 확인해주세요");
+          setIsNickname(false);
+        } else {
+          setRegisterStep(registerStep + 1);
+        }
+      } catch (err) {}
+    } else if (registerStep === 2) {
       setRegisterStep(registerStep + 1);
-    } else {
+    } else if (registerStep === 3) {
       navigate("/hobbychoice", {
         state: {
           email: email,
@@ -103,15 +139,16 @@ const RegisterPage = () => {
   if (registerStep === 0) {
     return (
       <Wrapper>
-        <Header>
+        <Header onClick={onClickHeaderHandler}>
           <FaChevronLeft style={{ paddingRight: "3px" }} /> 기본정보
         </Header>
-        <form id='submit' style={{ display: "flex", flexDirection: "column" }}>
+        <form style={{ display: "flex", flexDirection: "column" }}>
           <Label htmlFor='email'>이메일</Label>
           <Input
             id='email'
             type='email'
             placeholder='이메일'
+            autoComplete='off'
             value={email}
             onChange={onChangeEmailHandler}
             required
@@ -141,7 +178,6 @@ const RegisterPage = () => {
           </ErrMessage>
         </form>
         <NextButton
-          form='submit'
           disabled={!(isEmail && isPassword && isPasswordConfirm)}
           onClick={onClickHandler}
         >
@@ -152,7 +188,7 @@ const RegisterPage = () => {
   } else if (registerStep === 1) {
     return (
       <Wrapper>
-        <Header>
+        <Header onClick={onClickHeaderHandler}>
           <FaChevronLeft style={{ paddingRight: "3px" }} /> 기본정보
         </Header>
         <form style={{ display: "flex", flexDirection: "column" }}>
@@ -160,12 +196,15 @@ const RegisterPage = () => {
           <Input
             id='nickname'
             type='text'
+            autoComplete='off'
+            maxLength='4'
             placeholder='닉네임 입력'
             value={nickname}
             onChange={onChangeNicknameHandler}
           ></Input>
+          <ErrMessage inverted={isNickname}>{nicknameMessage}</ErrMessage>
         </form>
-        <NextButton disabled={activeButton} onClick={onClickHandler}>
+        <NextButton disabled={!isNickname} onClick={onClickHandler}>
           다음으로(2/4)
         </NextButton>
       </Wrapper>
@@ -173,7 +212,7 @@ const RegisterPage = () => {
   } else if (registerStep === 2) {
     return (
       <Wrapper>
-        <Header>
+        <Header onClick={onClickHeaderHandler}>
           <FaChevronLeft style={{ paddingRight: "3px" }} /> 기본정보
         </Header>
         <Title htmlFor='sex'>성별을 선택해 주세요!</Title>
@@ -194,7 +233,7 @@ const RegisterPage = () => {
             onChange={onChangeSexHandler}
           ></RadioInput>
           <RadioLabel htmlFor='female'>여성</RadioLabel>
-          <NextButton disabled={activeButton} onClick={onClickHandler}>
+          <NextButton disabled={!sex} onClick={onClickHandler}>
             다음으로(3/4)
           </NextButton>
         </form>
@@ -203,12 +242,14 @@ const RegisterPage = () => {
   } else if (registerStep === 3) {
     return (
       <Wrapper>
-        <Header>
+        <Header onClick={onClickHeaderHandler}>
           <FaChevronLeft style={{ paddingRight: "3px" }} /> 기본정보
         </Header>
         <form style={{ display: "flex", flexDirection: "column" }}>
           <Label htmlFor='birth'>생년월일을 알려주세요!</Label>
           <Input
+            min='1800-00-00'
+            max='2200-12-31'
             id='birth'
             type='date'
             value={birth}
@@ -216,7 +257,7 @@ const RegisterPage = () => {
             placeholder='YYYY/MM/DD'
           ></Input>
         </form>
-        <NextButton disabled={activeButton} onClick={onClickHandler}>
+        <NextButton disabled={!birth} onClick={onClickHandler}>
           레벨 측정 시작
         </NextButton>
       </Wrapper>
@@ -244,6 +285,7 @@ const Header = styled.header`
   margin-bottom: 44px;
   display: flex;
   align-items: center;
+  cursor: pointer;
 `;
 
 const Title = styled.div`

@@ -35,10 +35,14 @@ const LevelResultPage = () => {
     } catch (err) {}
   };
 
+  const onClickHeaderHandler = () => {
+    navigate(-1);
+  };
+
   return (
     <div>
       <Wrapper>
-        <Header>
+        <Header onClick={onClickHeaderHandler}>
           <FaChevronLeft style={{ paddingRight: "3px" }} /> 측정 결과 확인
         </Header>
         <Main>
@@ -80,6 +84,7 @@ const Header = styled.header`
   margin-bottom: 44px;
   align-items: center;
   z-index: 20;
+  cursor: pointer;
 `;
 
 const Main = styled.div`
